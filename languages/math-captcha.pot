@@ -1,0 +1,331 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Math Captcha\n"
+"POT-Creation-Date: 2013-06-13 19:58+0100\n"
+"PO-Revision-Date: 2013-06-13 20:00+0100\n"
+"Last-Translator: Bartosz Arendt <info@digitalfactory.pl>\n"
+"Language-Team: dFactory <info@dfactory.eu>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../math-captcha.php:70 ../math-captcha.php:71 ../math-captcha.php:72
+msgid "ERROR"
+msgstr ""
+
+#: ../math-captcha.php:70 ../includes/math-captcha-cf7.php:104
+msgid "Please enter captcha value."
+msgstr ""
+
+#: ../math-captcha.php:71 ../includes/math-captcha-cf7.php:100
+msgid "Invalid captcha value."
+msgstr ""
+
+#: ../math-captcha.php:72 ../includes/math-captcha-cf7.php:108
+msgid "Captcha time expired."
+msgstr ""
+
+#: ../math-captcha.php:503
+msgid "one"
+msgstr ""
+
+#: ../math-captcha.php:504
+msgid "two"
+msgstr ""
+
+#: ../math-captcha.php:505
+msgid "three"
+msgstr ""
+
+#: ../math-captcha.php:506
+msgid "four"
+msgstr ""
+
+#: ../math-captcha.php:507
+msgid "five"
+msgstr ""
+
+#: ../math-captcha.php:508
+msgid "six"
+msgstr ""
+
+#: ../math-captcha.php:509
+msgid "seven"
+msgstr ""
+
+#: ../math-captcha.php:510
+msgid "eight"
+msgstr ""
+
+#: ../math-captcha.php:511
+msgid "nine"
+msgstr ""
+
+#: ../math-captcha.php:512
+msgid "ten"
+msgstr ""
+
+#: ../math-captcha.php:513
+msgid "eleven"
+msgstr ""
+
+#: ../math-captcha.php:514
+msgid "twelve"
+msgstr ""
+
+#: ../math-captcha.php:515
+msgid "thirteen"
+msgstr ""
+
+#: ../math-captcha.php:516
+msgid "fourteen"
+msgstr ""
+
+#: ../math-captcha.php:517
+msgid "fifteen"
+msgstr ""
+
+#: ../math-captcha.php:518
+msgid "sixteen"
+msgstr ""
+
+#: ../math-captcha.php:519
+msgid "seventeen"
+msgstr ""
+
+#: ../math-captcha.php:520
+msgid "eighteen"
+msgstr ""
+
+#: ../math-captcha.php:521
+msgid "nineteen"
+msgstr ""
+
+#: ../math-captcha.php:522
+msgid "twenty"
+msgstr ""
+
+#: ../math-captcha.php:523
+msgid "thirty"
+msgstr ""
+
+#: ../math-captcha.php:524
+msgid "forty"
+msgstr ""
+
+#: ../math-captcha.php:525
+msgid "fifty"
+msgstr ""
+
+#: ../math-captcha.php:526
+msgid "sixty"
+msgstr ""
+
+#: ../math-captcha.php:527
+msgid "seventy"
+msgstr ""
+
+#: ../math-captcha.php:528
+msgid "eighty"
+msgstr ""
+
+#: ../math-captcha.php:529
+msgid "ninety"
+msgstr ""
+
+#: ../math-captcha.php:824
+msgid "login form"
+msgstr ""
+
+#: ../math-captcha.php:825
+msgid "registration form"
+msgstr ""
+
+#: ../math-captcha.php:826
+msgid "reset password form"
+msgstr ""
+
+#: ../math-captcha.php:827
+msgid "comment form"
+msgstr ""
+
+#: ../math-captcha.php:828
+msgid "bbpress"
+msgstr ""
+
+#: ../math-captcha.php:829
+msgid "contact form 7"
+msgstr ""
+
+#: ../math-captcha.php:832
+msgid "yes"
+msgstr ""
+
+#: ../math-captcha.php:833
+msgid "no"
+msgstr ""
+
+#: ../math-captcha.php:836
+msgid "addition (+)"
+msgstr ""
+
+#: ../math-captcha.php:837
+msgid "subtraction (-)"
+msgstr ""
+
+#: ../math-captcha.php:838
+msgid "multiplication (&#215;)"
+msgstr ""
+
+#: ../math-captcha.php:839
+msgid "division (&#247;)"
+msgstr ""
+
+#: ../math-captcha.php:842
+msgid "numbers"
+msgstr ""
+
+#: ../math-captcha.php:843
+msgid "words"
+msgstr ""
+
+#: ../math-captcha.php:852
+msgid "Math Captcha settings"
+msgstr ""
+
+#: ../math-captcha.php:853
+msgid "Enable Math Captcha for"
+msgstr ""
+
+#: ../math-captcha.php:854
+msgid "Hide for logged in users"
+msgstr ""
+
+#: ../math-captcha.php:855
+msgid "Mathematical operations"
+msgstr ""
+
+#: ../math-captcha.php:856
+msgid "Display captcha as"
+msgstr ""
+
+#: ../math-captcha.php:857
+msgid "Captcha field title"
+msgstr ""
+
+#: ../math-captcha.php:858
+msgid "Captcha time"
+msgstr ""
+
+#: ../math-captcha.php:875
+msgid "Select were would you like to use Math Captcha."
+msgstr ""
+
+#: ../math-captcha.php:893
+msgid "Would you like to hide captcha for logged in users?"
+msgstr ""
+
+#: ../math-captcha.php:903
+msgid ""
+"Select what kind of mathematical operation will be used to generate captcha."
+msgstr ""
+
+#: ../math-captcha.php:913
+msgid "Enter the time (in seconds) a user has to enter captcha value."
+msgstr ""
+
+#: ../math-captcha.php:931 ../math-captcha.php:949
+msgid "Opis"
+msgstr ""
+
+#: ../math-captcha.php:991
+msgid ""
+"You need to check at least one mathematical operation. Defaults settings of "
+"this option restored."
+msgstr ""
+
+#: ../math-captcha.php:1007
+msgid ""
+"You need to check at least one group. Defaults settings of this option "
+"restored."
+msgstr ""
+
+#: ../math-captcha.php:1034 ../math-captcha.php:1035 ../math-captcha.php:1047
+#: ../math-captcha.php:1060 ../includes/math-captcha-cf7.php:139
+msgid "Math Captcha"
+msgstr ""
+
+#: ../math-captcha.php:1062
+msgid "Need support?"
+msgstr ""
+
+#: ../math-captcha.php:1063
+msgid ""
+"If you are having problems with this plugin, please talk about them in the"
+msgstr ""
+
+#: ../math-captcha.php:1063
+msgid "Support forum"
+msgstr ""
+
+#: ../math-captcha.php:1065
+msgid "Do you like this plugin?"
+msgstr ""
+
+#: ../math-captcha.php:1066
+msgid "Rate it 5"
+msgstr ""
+
+#: ../math-captcha.php:1066
+msgid "on WordPress.org"
+msgstr ""
+
+#: ../math-captcha.php:1067
+msgid "Blog about it & link to the"
+msgstr ""
+
+#: ../math-captcha.php:1067
+msgid "plugin page"
+msgstr ""
+
+#: ../math-captcha.php:1068
+msgid "Check out our other"
+msgstr ""
+
+#: ../math-captcha.php:1068
+msgid "WordPress plugins"
+msgstr ""
+
+#: ../math-captcha.php:1071
+msgid "Created by"
+msgstr ""
+
+#: ../math-captcha.php:1132
+msgid "Support"
+msgstr ""
+
+#: ../math-captcha.php:1154
+msgid "Settings"
+msgstr ""
+
+#: ../includes/math-captcha-cf7.php:151
+msgid "Name"
+msgstr ""
+
+#: ../includes/math-captcha-cf7.php:157
+msgid "Input field settings"
+msgstr ""
+
+#: ../includes/math-captcha-cf7.php:160 ../includes/math-captcha-cf7.php:164
+msgid "optional"
+msgstr ""
+
+#: ../includes/math-captcha-cf7.php:170
+msgid "Copy this code and paste it into the form left."
+msgstr ""
