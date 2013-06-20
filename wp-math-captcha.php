@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Math Captcha
-Description: Math Captcha is a <strong>very effective CAPTCHA for WordPress</strong> that integrates into login, registration, comments, bbPress and Contact Form 7.
-Version: 1.0.0
+Description: Math Captcha is a <strong>very effective CAPTCHA for WordPress</strong> that integrates into login, registration, comments, Contact Form 7 and bbPress.
+Version: 1.0.0.2
 Author: dFactory
 Author URI: http://www.dfactory.eu/
 Plugin URI: http://www.dfactory.eu/plugins/math-captcha/
@@ -62,15 +62,7 @@ class Math_Captcha
 		register_activation_hook(__FILE__, array(&$this, 'activation'));
 		register_deactivation_hook(__FILE__, array(&$this, 'deactivation'));
 
-		//get defaults
 		$this->options = get_option('mc_options');
-
-		//error messages
-		$this->err_msg = array(
-			'fill' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Please enter captcha value.', 'math-captcha'),
-			'wrong' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Invalid captcha value.', 'math-captcha'),
-			'time' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Captcha time expired.', 'math-captcha')
-		);
 
 		//actions
 		add_action('plugins_loaded', array(&$this, 'init_mc_session'), 1);
@@ -873,6 +865,12 @@ class Math_Captcha
 	*/
 	public function load_defaults()
 	{
+		$this->err_msg = array(
+			'fill' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Please enter captcha value.', 'math-captcha'),
+			'wrong' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Invalid captcha value.', 'math-captcha'),
+			'time' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Captcha time expired.', 'math-captcha')
+		);
+
 		$this->enable_for = array(
 			'login_form' => __('login form', 'math-captcha'),
 			'registration_form' => __('registration form', 'math-captcha'),
@@ -881,16 +879,19 @@ class Math_Captcha
 			'bbpress' => __('bbpress', 'math-captcha'),
 			'contact_form_7' => __('contact form 7', 'math-captcha')
 		);
+
 		$this->choice = array(
 			'yes' => __('yes', 'math-captcha'),
 			'no' => __('no', 'math-captcha')
 		);
+
 		$this->mathematical_operations = array(
 			'addition' => __('addition (+)', 'math-captcha'),
 			'subtraction' => __('subtraction (-)', 'math-captcha'),
 			'multiplication' => __('multiplication (&#215;)', 'math-captcha'),
 			'division' => __('division (&#247;)', 'math-captcha')
 		);
+
 		$this->groups = array(
 			'numbers' => __('numbers', 'math-captcha'),
 			'words' => __('words', 'math-captcha')
@@ -965,7 +966,7 @@ class Math_Captcha
 		echo '
 		<div id="mc_title">
 			<input type="text" name="mc_options[title]" value="'.$this->options['title'].'" />
-			<p class="description">'.__('Select what kind of mathematical operation will be used to generate captcha.', 'math-captcha').'</p>
+			<p class="description">'.__('Select what kind of mathematical operations will be used to generate captcha.', 'math-captcha').'</p>
 		</div>';
 	}
 
@@ -999,7 +1000,7 @@ class Math_Captcha
 		}
 
 		echo '
-			<p class="description">'.__('Opis', 'math-captcha').'</p>
+			<p class="description">'.__('Select which mathematical operations to use in your captcha.', 'math-captcha').'</p>
 		</div>';
 	}
 
@@ -1020,7 +1021,7 @@ class Math_Captcha
 		}
 
 		echo '
-			<p class="description">'.__('Opis', 'math-captcha').'</p>
+			<p class="description">'.__('Select how you\'d like to display you captcha.', 'math-captcha').'</p>
 		</div>';
 	}
 
@@ -1146,12 +1147,12 @@ class Math_Captcha
 					<p>'.__('If you are having problems with this plugin, please talk about them in the', 'math-captcha').' <a href="http://dfactory.eu/support/" target="_blank" title="'.__('Support forum','math-captcha').'">'.__('Support forum', 'math-captcha').'</a></p>
 					<hr />
 					<h3>'.__('Do you like this plugin?', 'math-captcha').'</h3>
-					<p><a href="http://wordpress.org/support/view/plugin-reviews/math-captcha" target="_blank" title="'.__('Rate it 5', 'math-captcha').'">'.__('Rate it 5', 'math-captcha').'</a> '.__('on WordPress.org', 'math-captcha').'<br />'.
+					<p><a href="http://wordpress.org/support/view/plugin-reviews/wp-math-captcha" target="_blank" title="'.__('Rate it 5', 'math-captcha').'">'.__('Rate it 5', 'math-captcha').'</a> '.__('on WordPress.org', 'math-captcha').'<br />'.
 					__('Blog about it & link to the', 'math-captcha').' <a href="http://dfactory.eu/plugins/math-captcha/" target="_blank" title="'.__('plugin page', 'math-captcha').'">'.__('plugin page', 'math-captcha').'</a><br />'.
 					__('Check out our other', 'math-captcha').' <a href="http://dfactory.eu/plugins/" target="_blank" title="'.__('WordPress plugins', 'math-captcha').'">'.__('WordPress plugins', 'math-captcha').'</a>
 					</p>            
 					<hr />
-					<p class="df-link">'.__('Created by', 'math-captcha').' <a href="http://www.dfactory.eu" target="_blank" title="dFactory - Quality plugins for WordPress"><img src="'.plugins_url('/images/logo-dfactory.png' , __FILE__ ).'" title="dFactory - Quality plugins for WordPress" alt="dFactory - Quality plugins for WordPress" /></a></p>
+					<p class="df-link">Created by <a href="http://www.dfactory.eu" target="_blank" title="dFactory - Quality plugins for WordPress"><img src="'.plugins_url('/images/logo-dfactory.png' , __FILE__ ).'" title="dFactory - Quality plugins for WordPress" alt="dFactory - Quality plugins for WordPress" /></a></p>
 				</div>
 			</div>
 			<div class="clear"></div>

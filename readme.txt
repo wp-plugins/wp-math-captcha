@@ -4,11 +4,11 @@ Donate link: http://www.dfactory.eu/
 Tags: antispam, capcha, captcha, captha, catcha, comment, comments, spam, security, login, lost password, math captcha, registration, cf7, contact, contact forms, form, contact form 7, bbpress
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 1.0.0
+Stable tag: 1.0.0.2
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
-Math Captcha is a very effective CAPTCHA for WordPress that integrates into login, registration, comments, bbPress and Contact Form 7.
+Math Captcha is a very effective CAPTCHA for WordPress that integrates into login, registration, comments, Contact Form 7 and bbPress.
 
 == Description ==
 
@@ -18,7 +18,7 @@ For more information, check out the [plugin page](http://www.dfactory.eu/plugins
 
 = Features include: =
 
-* Select where to use math captcha: login, registration and lost password forms, comments, bbPress and Contact Form 7
+* Select where to use math captcha: login, registration and lost password forms, comments, Contact Form 7 and bbPress
 * Hiding captcha for logged in users
 * Select which mathematical operation to use
 * Displaying captcha as numbers and/or words
@@ -48,5 +48,5 @@ No questions yet.
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-Initial Math Captcha release
+= 1.0.0.2 =
+Initial release
