@@ -2,7 +2,7 @@
 /*
 Plugin Name: Math Captcha
 Description: Math Captcha is a <strong>very effective CAPTCHA for WordPress</strong> that integrates into login, registration, comments, Contact Form 7 and bbPress.
-Version: 1.0.0.3
+Version: 1.0.1
 Author: dFactory
 Author URI: http://www.dfactory.eu/
 Plugin URI: http://www.dfactory.eu/plugins/math-captcha/
@@ -45,7 +45,7 @@ class Math_Captcha
 		),
 		'time' => 60
 	);
-	private $options = array();
+	public static $options = array();
 	private $choice = array();
 	private $enable_for = array();
 	private $mathematical_operations = array();
@@ -54,7 +54,7 @@ class Math_Captcha
 	private $errors;
 	private $session_id = '';
 	private $crypt_key = 'u.%ds)4;?D<gM#%fd!W2]9';
-	public $err_msg = array();
+	public static $err_msg = array();
 
 
 	public function __construct()
@@ -148,7 +148,7 @@ class Math_Captcha
 		//Contact Form 7
 		if($this->options['enable_for']['contact_form_7'] === TRUE)
 		{
-			if(is_plugin_active('contact-form-7/wp-contact-form-7.php') && (!is_user_logged_in() || (is_user_logged_in() && $this->options['hide_for_logged_users'] === FALSE)))
+			if(is_plugin_active('contact-form-7/wp-contact-form-7.php'))
 			{
 				global $mc_class;
 				$mc_class = $this;

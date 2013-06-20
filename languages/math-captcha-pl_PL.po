@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Math Captcha\n"
-"POT-Creation-Date: 2013-06-20 15:56+0100\n"
-"PO-Revision-Date: 2013-06-20 15:56+0100\n"
+"POT-Creation-Date: 2013-06-20 21:03+0100\n"
+"PO-Revision-Date: 2013-06-20 21:03+0100\n"
 "Last-Translator: Bartosz Arendt <info@digitalfactory.pl>\n"
 "Language-Team: dFactory <info@dfactory.eu>\n"
 "Language: English\n"
@@ -128,15 +128,15 @@ msgstr "dziewięćdziesiąt"
 msgid "ERROR"
 msgstr "BŁĄD"
 
-#: ../wp-math-captcha.php:869 ../includes/math-captcha-cf7.php:104
+#: ../wp-math-captcha.php:869 ../includes/math-captcha-cf7.php:113
 msgid "Please enter captcha value."
 msgstr "Proszę wpisać wartość."
 
-#: ../wp-math-captcha.php:870 ../includes/math-captcha-cf7.php:100
+#: ../wp-math-captcha.php:870 ../includes/math-captcha-cf7.php:109
 msgid "Invalid captcha value."
 msgstr "Nieprawidłowa wartość."
 
-#: ../wp-math-captcha.php:871 ../includes/math-captcha-cf7.php:108
+#: ../wp-math-captcha.php:871 ../includes/math-captcha-cf7.php:117
 msgid "Captcha time expired."
 msgstr "Upłynął czas."
 
@@ -269,7 +269,7 @@ msgstr ""
 
 #: ../wp-math-captcha.php:1115 ../wp-math-captcha.php:1116
 #: ../wp-math-captcha.php:1131 ../wp-math-captcha.php:1144
-#: ../includes/math-captcha-cf7.php:139
+#: ../includes/math-captcha-cf7.php:148
 msgid "Math Captcha"
 msgstr "Math Captcha"
 
@@ -322,19 +322,19 @@ msgstr "Forum pomocy"
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: ../includes/math-captcha-cf7.php:151
+#: ../includes/math-captcha-cf7.php:160
 msgid "Name"
 msgstr "Nazwa"
 
-#: ../includes/math-captcha-cf7.php:157
+#: ../includes/math-captcha-cf7.php:166
 msgid "Input field settings"
 msgstr "Ustawienia pola"
 
-#: ../includes/math-captcha-cf7.php:160 ../includes/math-captcha-cf7.php:164
+#: ../includes/math-captcha-cf7.php:169 ../includes/math-captcha-cf7.php:173
 msgid "optional"
 msgstr "opcjonalne"
 
-#: ../includes/math-captcha-cf7.php:170
+#: ../includes/math-captcha-cf7.php:179
 msgid "Copy this code and paste it into the form left."
 msgstr "Skopij i wkej ten kod do formularza po lewej."
 
