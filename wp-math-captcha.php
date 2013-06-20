@@ -2,7 +2,7 @@
 /*
 Plugin Name: Math Captcha
 Description: Math Captcha is a <strong>very effective CAPTCHA for WordPress</strong> that integrates into login, registration, comments, Contact Form 7 and bbPress.
-Version: 1.0.0.1
+Version: 1.0.0.2
 Author: dFactory
 Author URI: http://www.dfactory.eu/
 Plugin URI: http://www.dfactory.eu/plugins/math-captcha/
@@ -966,7 +966,7 @@ class Math_Captcha
 		echo '
 		<div id="mc_title">
 			<input type="text" name="mc_options[title]" value="'.$this->options['title'].'" />
-			<p class="description">'.__('Select what kind of mathematical operation will be used to generate captcha.', 'math-captcha').'</p>
+			<p class="description">'.__('Select what kind of mathematical operations will be used to generate captcha.', 'math-captcha').'</p>
 		</div>';
 	}
 
@@ -1000,7 +1000,7 @@ class Math_Captcha
 		}
 
 		echo '
-			<p class="description">'.__('Opis', 'math-captcha').'</p>
+			<p class="description">'.__('Select which mathematical operations to use in your captcha.', 'math-captcha').'</p>
 		</div>';
 	}
 
@@ -1021,7 +1021,7 @@ class Math_Captcha
 		}
 
 		echo '
-			<p class="description">'.__('Opis', 'math-captcha').'</p>
+			<p class="description">'.__('Select how you\'d like to display you captcha.', 'math-captcha').'</p>
 		</div>';
 	}
 
