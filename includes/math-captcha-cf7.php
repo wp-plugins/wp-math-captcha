@@ -42,8 +42,11 @@ function wpcf7_mathcaptcha_shortcode_handler($tag)
 
 	$mc_form = $mc_class->generate_captcha_phrase('cf7');
 	$mc_form[$mc_form['input']] = '<input %2$s />';
+	
+	$math_captcha_title = apply_filters('math_captcha_title', $mc_class->get_attribute('title'));
 
-	return sprintf('<label>'.apply_filters('math_captcha_title', $mc_class->get_attribute('title')).'</label><br /><span class="wpcf7-form-control-wrap %1$s">'.$mc_form[1].$mc_form[2].$mc_form[3].'%3$s</span>', $tag->name, $atts, $validation_error);
+	return sprintf(((empty($math_captcha_title)) ? '' : ''.$math_captcha_title.'').'<span class="wpcf7-form-control-wrap %1$s">'.$mc_form[1].$mc_form[2].$mc_form[3].'%3$s', $tag->name, $atts, $validation_error);
+	
 }
 
 
