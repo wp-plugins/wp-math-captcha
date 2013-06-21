@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Math Captcha
-Description: Math Captcha is a <strong>very effective CAPTCHA for WordPress</strong> that integrates into login, registration, comments, bbPress and Contact Form 7.
-Version: 1.0.0
+Description: Math Captcha is a <strong>very effective CAPTCHA for WordPress</strong> that integrates into login, registration, comments, Contact Form 7 and bbPress.
+Version: 1.0.1.1
 Author: dFactory
 Author URI: http://www.dfactory.eu/
 Plugin URI: http://www.dfactory.eu/plugins/math-captcha/
@@ -43,9 +43,9 @@ class Math_Captcha
 			'numbers' => TRUE,
 			'words' => FALSE
 		),
-		'time' => 60
+		'time' => 300
 	);
-	private $options = array();
+	public static $options = array();
 	private $choice = array();
 	private $enable_for = array();
 	private $mathematical_operations = array();
@@ -54,7 +54,7 @@ class Math_Captcha
 	private $errors;
 	private $session_id = '';
 	private $crypt_key = 'u.%ds)4;?D<gM#%fd!W2]9';
-	public $err_msg = array();
+	public static $err_msg = array();
 
 
 	public function __construct()
@@ -62,21 +62,13 @@ class Math_Captcha
 		register_activation_hook(__FILE__, array(&$this, 'activation'));
 		register_deactivation_hook(__FILE__, array(&$this, 'deactivation'));
 
-		//get defaults
 		$this->options = get_option('mc_options');
-
-		//error messages
-		$this->err_msg = array(
-			'fill' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Please enter captcha value.', 'math-captcha'),
-			'wrong' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Invalid captcha value.', 'math-captcha'),
-			'time' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Captcha time expired.', 'math-captcha')
-		);
 
 		//actions
 		add_action('plugins_loaded', array(&$this, 'init_mc_session'), 1);
-		add_action('plugins_loaded', array(&$this, 'load_actions_filters'), 1);
 		add_action('plugins_loaded', array(&$this, 'load_textdomain'));
 		add_action('plugins_loaded', array(&$this, 'load_defaults'));
+		add_action('init', array(&$this, 'load_actions_filters'), 1);
 		add_action('admin_init', array(&$this, 'register_settings'));
 		add_action('admin_menu', array(&$this, 'admin_menu_options'));
 		add_action('admin_enqueue_scripts', array(&$this, 'admin_comments_scripts_styles'));
@@ -94,8 +86,6 @@ class Math_Captcha
 	public function load_actions_filters()
 	{
 		global $pagenow;
-
-		include_once(ABSPATH.'wp-admin/includes/plugin.php');
 
 		//comments
 		if($this->options['enable_for']['comment_form'] === TRUE)
@@ -144,6 +134,8 @@ class Math_Captcha
 		//bbPress
 		if($this->options['enable_for']['bbpress'] === TRUE)
 		{
+			include_once(ABSPATH.'wp-admin/includes/plugin.php');
+
 			if(is_plugin_active('bbpress/bbpress.php') && (!is_user_logged_in() || (is_user_logged_in() && $this->options['hide_for_logged_users'] === FALSE)))
 			{
 				add_action('bbp_theme_after_reply_form_content', array(&$this, 'add_bbp_captcha_form'));
@@ -156,7 +148,9 @@ class Math_Captcha
 		//Contact Form 7
 		if($this->options['enable_for']['contact_form_7'] === TRUE)
 		{
-			if(is_plugin_active('contact-form-7/wp-contact-form-7.php') && (!is_user_logged_in() || (is_user_logged_in() && $this->options['hide_for_logged_users'] === FALSE)))
+			include_once(ABSPATH.'wp-admin/includes/plugin.php');
+
+			if(is_plugin_active('contact-form-7/wp-contact-form-7.php'))
 			{
 				global $mc_class;
 				$mc_class = $this;
@@ -474,15 +468,17 @@ class Math_Captcha
 	{
 		if(is_admin())
 			return;
-		
+
 		$captcha_title = apply_filters('math_captcha_title', $this->options['title']);
-		
+
 		echo '<p class="math-captcha-form">';
-		if (!empty($captcha_title))
+
+		if(!empty($captcha_title))
 		{
 			echo '<label>'.$captcha_title.'<br /></label>';
 		}
-		echo '<span>'.$this->generate_captcha_phrase('default').'</span>
+
+		echo '<span>'.$this->generate_captcha_phrase('bbpress').'</span>
 		</p>';
 	}
 
@@ -873,6 +869,12 @@ class Math_Captcha
 	*/
 	public function load_defaults()
 	{
+		$this->err_msg = array(
+			'fill' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Please enter captcha value.', 'math-captcha'),
+			'wrong' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Invalid captcha value.', 'math-captcha'),
+			'time' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Captcha time expired.', 'math-captcha')
+		);
+
 		$this->enable_for = array(
 			'login_form' => __('login form', 'math-captcha'),
 			'registration_form' => __('registration form', 'math-captcha'),
@@ -881,16 +883,19 @@ class Math_Captcha
 			'bbpress' => __('bbpress', 'math-captcha'),
 			'contact_form_7' => __('contact form 7', 'math-captcha')
 		);
+
 		$this->choice = array(
 			'yes' => __('yes', 'math-captcha'),
 			'no' => __('no', 'math-captcha')
 		);
+
 		$this->mathematical_operations = array(
 			'addition' => __('addition (+)', 'math-captcha'),
 			'subtraction' => __('subtraction (-)', 'math-captcha'),
 			'multiplication' => __('multiplication (&#215;)', 'math-captcha'),
 			'division' => __('division (&#247;)', 'math-captcha')
 		);
+
 		$this->groups = array(
 			'numbers' => __('numbers', 'math-captcha'),
 			'words' => __('words', 'math-captcha')
@@ -965,7 +970,7 @@ class Math_Captcha
 		echo '
 		<div id="mc_title">
 			<input type="text" name="mc_options[title]" value="'.$this->options['title'].'" />
-			<p class="description">'.__('Select what kind of mathematical operation will be used to generate captcha.', 'math-captcha').'</p>
+			<p class="description">'.__('Select what kind of mathematical operations will be used to generate captcha.', 'math-captcha').'</p>
 		</div>';
 	}
 
@@ -999,7 +1004,7 @@ class Math_Captcha
 		}
 
 		echo '
-			<p class="description">'.__('Opis', 'math-captcha').'</p>
+			<p class="description">'.__('Select which mathematical operations to use in your captcha.', 'math-captcha').'</p>
 		</div>';
 	}
 
@@ -1020,7 +1025,7 @@ class Math_Captcha
 		}
 
 		echo '
-			<p class="description">'.__('Opis', 'math-captcha').'</p>
+			<p class="description">'.__('Select how you\'d like to display you captcha.', 'math-captcha').'</p>
 		</div>';
 	}
 
@@ -1146,12 +1151,12 @@ class Math_Captcha
 					<p>'.__('If you are having problems with this plugin, please talk about them in the', 'math-captcha').' <a href="http://dfactory.eu/support/" target="_blank" title="'.__('Support forum','math-captcha').'">'.__('Support forum', 'math-captcha').'</a></p>
 					<hr />
 					<h3>'.__('Do you like this plugin?', 'math-captcha').'</h3>
-					<p><a href="http://wordpress.org/support/view/plugin-reviews/math-captcha" target="_blank" title="'.__('Rate it 5', 'math-captcha').'">'.__('Rate it 5', 'math-captcha').'</a> '.__('on WordPress.org', 'math-captcha').'<br />'.
+					<p><a href="http://wordpress.org/support/view/plugin-reviews/wp-math-captcha" target="_blank" title="'.__('Rate it 5', 'math-captcha').'">'.__('Rate it 5', 'math-captcha').'</a> '.__('on WordPress.org', 'math-captcha').'<br />'.
 					__('Blog about it & link to the', 'math-captcha').' <a href="http://dfactory.eu/plugins/math-captcha/" target="_blank" title="'.__('plugin page', 'math-captcha').'">'.__('plugin page', 'math-captcha').'</a><br />'.
 					__('Check out our other', 'math-captcha').' <a href="http://dfactory.eu/plugins/" target="_blank" title="'.__('WordPress plugins', 'math-captcha').'">'.__('WordPress plugins', 'math-captcha').'</a>
 					</p>            
 					<hr />
-					<p class="df-link">'.__('Created by', 'math-captcha').' <a href="http://www.dfactory.eu" target="_blank" title="dFactory - Quality plugins for WordPress"><img src="'.plugins_url('/images/logo-dfactory.png' , __FILE__ ).'" title="dFactory - Quality plugins for WordPress" alt="dFactory - Quality plugins for WordPress" /></a></p>
+					<p class="df-link">Created by <a href="http://www.dfactory.eu" target="_blank" title="dFactory - Quality plugins for WordPress"><img src="'.plugins_url('/images/logo-dfactory.png' , __FILE__ ).'" title="dFactory - Quality plugins for WordPress" alt="dFactory - Quality plugins for WordPress" /></a></p>
 				</div>
 			</div>
 			<div class="clear"></div>
@@ -1192,11 +1197,11 @@ class Math_Captcha
 	*/
 	public function plugin_extend_links($links, $file) 
 	{
-		if (!current_user_can('install_plugins'))
+		if(!current_user_can('install_plugins'))
 			return $links;
-	
+
 		$plugin = plugin_basename(__FILE__);
-		
+
 		if ($file == $plugin) 
 		{
 			return array_merge(
@@ -1204,7 +1209,7 @@ class Math_Captcha
 				array(sprintf('<a href="http://www.dfactory.eu/support/forum/math-captcha/" target="_blank">%s</a>', __('Support', 'math-captcha')))
 			);
 		}
-		
+
 		return $links;
 	}
 
