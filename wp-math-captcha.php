@@ -2,7 +2,7 @@
 /*
 Plugin Name: Math Captcha
 Description: Math Captcha is a <strong>very effective CAPTCHA for WordPress</strong> that integrates into login, registration, comments, Contact Form 7 and bbPress.
-Version: 1.0.1
+Version: 1.0.1.1
 Author: dFactory
 Author URI: http://www.dfactory.eu/
 Plugin URI: http://www.dfactory.eu/plugins/math-captcha/
@@ -43,7 +43,7 @@ class Math_Captcha
 			'numbers' => TRUE,
 			'words' => FALSE
 		),
-		'time' => 60
+		'time' => 300
 	);
 	public static $options = array();
 	private $choice = array();
@@ -66,9 +66,9 @@ class Math_Captcha
 
 		//actions
 		add_action('plugins_loaded', array(&$this, 'init_mc_session'), 1);
-		add_action('plugins_loaded', array(&$this, 'load_actions_filters'), 1);
 		add_action('plugins_loaded', array(&$this, 'load_textdomain'));
 		add_action('plugins_loaded', array(&$this, 'load_defaults'));
+		add_action('init', array(&$this, 'load_actions_filters'), 1);
 		add_action('admin_init', array(&$this, 'register_settings'));
 		add_action('admin_menu', array(&$this, 'admin_menu_options'));
 		add_action('admin_enqueue_scripts', array(&$this, 'admin_comments_scripts_styles'));
@@ -86,8 +86,6 @@ class Math_Captcha
 	public function load_actions_filters()
 	{
 		global $pagenow;
-
-		include_once(ABSPATH.'wp-admin/includes/plugin.php');
 
 		//comments
 		if($this->options['enable_for']['comment_form'] === TRUE)
@@ -136,6 +134,8 @@ class Math_Captcha
 		//bbPress
 		if($this->options['enable_for']['bbpress'] === TRUE)
 		{
+			include_once(ABSPATH.'wp-admin/includes/plugin.php');
+
 			if(is_plugin_active('bbpress/bbpress.php') && (!is_user_logged_in() || (is_user_logged_in() && $this->options['hide_for_logged_users'] === FALSE)))
 			{
 				add_action('bbp_theme_after_reply_form_content', array(&$this, 'add_bbp_captcha_form'));
@@ -148,6 +148,8 @@ class Math_Captcha
 		//Contact Form 7
 		if($this->options['enable_for']['contact_form_7'] === TRUE)
 		{
+			include_once(ABSPATH.'wp-admin/includes/plugin.php');
+
 			if(is_plugin_active('contact-form-7/wp-contact-form-7.php'))
 			{
 				global $mc_class;
@@ -466,15 +468,17 @@ class Math_Captcha
 	{
 		if(is_admin())
 			return;
-		
+
 		$captcha_title = apply_filters('math_captcha_title', $this->options['title']);
-		
+
 		echo '<p class="math-captcha-form">';
-		if (!empty($captcha_title))
+
+		if(!empty($captcha_title))
 		{
 			echo '<label>'.$captcha_title.'<br /></label>';
 		}
-		echo '<span>'.$this->generate_captcha_phrase('default').'</span>
+
+		echo '<span>'.$this->generate_captcha_phrase('bbpress').'</span>
 		</p>';
 	}
 
@@ -1193,11 +1197,11 @@ class Math_Captcha
 	*/
 	public function plugin_extend_links($links, $file) 
 	{
-		if (!current_user_can('install_plugins'))
+		if(!current_user_can('install_plugins'))
 			return $links;
-	
+
 		$plugin = plugin_basename(__FILE__);
-		
+
 		if ($file == $plugin) 
 		{
 			return array_merge(
@@ -1205,7 +1209,7 @@ class Math_Captcha
 				array(sprintf('<a href="http://www.dfactory.eu/support/forum/math-captcha/" target="_blank">%s</a>', __('Support', 'math-captcha')))
 			);
 		}
-		
+
 		return $links;
 	}
 

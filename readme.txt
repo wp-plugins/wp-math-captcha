@@ -1,10 +1,10 @@
-=== Math Captcha ===
+﻿=== Math Captcha ===
 Contributors: dfactory
 Donate link: http://www.dfactory.eu/
 Tags: antispam, capcha, captcha, captha, catcha, comment, comments, spam, security, login, lost password, math captcha, registration, cf7, contact, contact forms, form, contact form 7, bbpress
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 1.0.1
+Stable tag: 1.0.1.1
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -45,6 +45,7 @@ No questions yet.
 
 = 1.0.1 =
 * Fix: Math Captcha not available in Contact Form 7 if hide for logged in users selected
+* Fix: Captcha time expired error on bbPress 
 * Tweak: Empty captcha title
 
 
@@ -53,5 +54,5 @@ No questions yet.
 
 == Upgrade Notice ==
 
-= 1.0.1 =
-Fix for a couple of bugfixes
+= 1.0.1.1 =
+Fix: Captcha time expired error on bbPress
