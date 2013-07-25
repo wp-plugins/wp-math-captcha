@@ -29,9 +29,9 @@ For more information, check out the [plugin page](http://www.dfactory.eu/plugins
 
 == Installation ==
 
-1. Install Math Captcha either via the WordPress.org plugin directory, or by uploading the files to your server</li>
-1. Activate the plugin through the 'Plugins' menu in WordPress</li>
-1. Go to the Math Captcha menu and set your captcha display settings.</li>
+1. Install Math Captcha either via the WordPress.org plugin directory, or by uploading the files to your server
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Go to the Math Captcha menu and set your captcha display settings.
 
 == Frequently Asked Questions ==
 

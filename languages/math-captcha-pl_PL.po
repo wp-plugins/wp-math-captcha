@@ -1,257 +1,265 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Math Captcha\n"
-"POT-Creation-Date: 2013-06-20 21:03+0100\n"
-"PO-Revision-Date: 2013-06-20 21:03+0100\n"
+"POT-Creation-Date: 2013-07-25 10:22+0100\n"
+"PO-Revision-Date: 2013-07-25 10:22+0100\n"
 "Last-Translator: Bartosz Arendt <info@digitalfactory.pl>\n"
 "Language-Team: dFactory <info@dfactory.eu>\n"
 "Language: English\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-KeywordsList: gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../wp-math-captcha.php:542
+#: ../wp-math-captcha.php:496
 msgid "one"
 msgstr "jeden"
 
-#: ../wp-math-captcha.php:543
+#: ../wp-math-captcha.php:497
 msgid "two"
 msgstr "dwa"
 
-#: ../wp-math-captcha.php:544
+#: ../wp-math-captcha.php:498
 msgid "three"
 msgstr "trzy"
 
-#: ../wp-math-captcha.php:545
+#: ../wp-math-captcha.php:499
 msgid "four"
 msgstr "cztery"
 
-#: ../wp-math-captcha.php:546
+#: ../wp-math-captcha.php:500
 msgid "five"
 msgstr "pięć"
 
-#: ../wp-math-captcha.php:547
+#: ../wp-math-captcha.php:501
 msgid "six"
 msgstr "sześć"
 
-#: ../wp-math-captcha.php:548
+#: ../wp-math-captcha.php:502
 msgid "seven"
 msgstr "siedem"
 
-#: ../wp-math-captcha.php:549
+#: ../wp-math-captcha.php:503
 msgid "eight"
 msgstr "osiem"
 
-#: ../wp-math-captcha.php:550
+#: ../wp-math-captcha.php:504
 msgid "nine"
 msgstr "dziewięć"
 
-#: ../wp-math-captcha.php:551
+#: ../wp-math-captcha.php:505
 msgid "ten"
 msgstr "dziesięć"
 
-#: ../wp-math-captcha.php:552
+#: ../wp-math-captcha.php:506
 msgid "eleven"
 msgstr "jedenaście"
 
-#: ../wp-math-captcha.php:553
+#: ../wp-math-captcha.php:507
 msgid "twelve"
 msgstr "dwanaście"
 
-#: ../wp-math-captcha.php:554
+#: ../wp-math-captcha.php:508
 msgid "thirteen"
 msgstr "trzynaście"
 
-#: ../wp-math-captcha.php:555
+#: ../wp-math-captcha.php:509
 msgid "fourteen"
 msgstr "czternaście"
 
-#: ../wp-math-captcha.php:556
+#: ../wp-math-captcha.php:510
 msgid "fifteen"
 msgstr "piętnaście"
 
-#: ../wp-math-captcha.php:557
+#: ../wp-math-captcha.php:511
 msgid "sixteen"
 msgstr "szesnaście"
 
-#: ../wp-math-captcha.php:558
+#: ../wp-math-captcha.php:512
 msgid "seventeen"
 msgstr "siedemnaście"
 
-#: ../wp-math-captcha.php:559
+#: ../wp-math-captcha.php:513
 msgid "eighteen"
 msgstr "osiemnaście"
 
-#: ../wp-math-captcha.php:560
+#: ../wp-math-captcha.php:514
 msgid "nineteen"
 msgstr "dziewiętnaście"
 
-#: ../wp-math-captcha.php:561
+#: ../wp-math-captcha.php:515
 msgid "twenty"
 msgstr "dwadzieścia"
 
-#: ../wp-math-captcha.php:562
+#: ../wp-math-captcha.php:516
 msgid "thirty"
 msgstr "trzydzieści"
 
-#: ../wp-math-captcha.php:563
+#: ../wp-math-captcha.php:517
 msgid "forty"
 msgstr "czterdzieści"
 
-#: ../wp-math-captcha.php:564
+#: ../wp-math-captcha.php:518
 msgid "fifty"
 msgstr "pięćdziesiąt"
 
-#: ../wp-math-captcha.php:565
+#: ../wp-math-captcha.php:519
 msgid "sixty"
 msgstr "sześćdziesiąt"
 
-#: ../wp-math-captcha.php:566
+#: ../wp-math-captcha.php:520
 msgid "seventy"
 msgstr "siedemdziesiąt"
 
-#: ../wp-math-captcha.php:567
+#: ../wp-math-captcha.php:521
 msgid "eighty"
 msgstr "osiemdziesiąt"
 
-#: ../wp-math-captcha.php:568
+#: ../wp-math-captcha.php:522
 msgid "ninety"
 msgstr "dziewięćdziesiąt"
 
-#: ../wp-math-captcha.php:869 ../wp-math-captcha.php:870
-#: ../wp-math-captcha.php:871
+#: ../wp-math-captcha.php:812 ../wp-math-captcha.php:813
+#: ../wp-math-captcha.php:814
 msgid "ERROR"
 msgstr "BŁĄD"
 
-#: ../wp-math-captcha.php:869 ../includes/math-captcha-cf7.php:113
+#: ../wp-math-captcha.php:812 ../includes/math-captcha-cf7.php:113
 msgid "Please enter captcha value."
 msgstr "Proszę wpisać wartość."
 
-#: ../wp-math-captcha.php:870 ../includes/math-captcha-cf7.php:109
+#: ../wp-math-captcha.php:813 ../includes/math-captcha-cf7.php:109
 msgid "Invalid captcha value."
 msgstr "Nieprawidłowa wartość."
 
-#: ../wp-math-captcha.php:871 ../includes/math-captcha-cf7.php:117
+#: ../wp-math-captcha.php:814 ../includes/math-captcha-cf7.php:117
 msgid "Captcha time expired."
 msgstr "Upłynął czas."
 
-#: ../wp-math-captcha.php:875
+#: ../wp-math-captcha.php:818
 msgid "login form"
 msgstr "formularz logowania"
 
-#: ../wp-math-captcha.php:876
+#: ../wp-math-captcha.php:819
 msgid "registration form"
 msgstr "formularz rejestracji"
 
-#: ../wp-math-captcha.php:877
+#: ../wp-math-captcha.php:820
 msgid "reset password form"
 msgstr "resetowanie hasła"
 
-#: ../wp-math-captcha.php:878
+#: ../wp-math-captcha.php:821
 msgid "comment form"
 msgstr "komentarze"
 
-#: ../wp-math-captcha.php:879
+#: ../wp-math-captcha.php:822
 msgid "bbpress"
 msgstr "bbpress"
 
-#: ../wp-math-captcha.php:880
+#: ../wp-math-captcha.php:823
 msgid "contact form 7"
 msgstr "contact form 7"
 
-#: ../wp-math-captcha.php:884
+#: ../wp-math-captcha.php:827
 msgid "yes"
 msgstr "tak"
 
-#: ../wp-math-captcha.php:885
+#: ../wp-math-captcha.php:828
 msgid "no"
 msgstr "nie"
 
-#: ../wp-math-captcha.php:889
+#: ../wp-math-captcha.php:832
 msgid "addition (+)"
 msgstr "dodawanie (+)"
 
-#: ../wp-math-captcha.php:890
+#: ../wp-math-captcha.php:833
 msgid "subtraction (-)"
 msgstr "odejmowanie (-)"
 
-#: ../wp-math-captcha.php:891
+#: ../wp-math-captcha.php:834
 msgid "multiplication (&#215;)"
 msgstr "mnożenie (&#215;)"
 
-#: ../wp-math-captcha.php:892
+#: ../wp-math-captcha.php:835
 msgid "division (&#247;)"
 msgstr "dzielenie (&#247;)"
 
-#: ../wp-math-captcha.php:896
+#: ../wp-math-captcha.php:839
 msgid "numbers"
 msgstr "liczby"
 
-#: ../wp-math-captcha.php:897
+#: ../wp-math-captcha.php:840
 msgid "words"
 msgstr "słowa"
 
-#: ../wp-math-captcha.php:909
+#: ../wp-math-captcha.php:852
 msgid "Math Captcha settings"
 msgstr "Ustawienia Math Captcha"
 
-#: ../wp-math-captcha.php:910
+#: ../wp-math-captcha.php:853
 msgid "Enable Math Captcha for"
 msgstr "Włącz captcha dla"
 
-#: ../wp-math-captcha.php:911
+#: ../wp-math-captcha.php:854
 msgid "Hide for logged in users"
 msgstr "Ukryj dla zalogowanych"
 
-#: ../wp-math-captcha.php:912
+#: ../wp-math-captcha.php:855
 msgid "Mathematical operations"
 msgstr "Operacje matematyczne"
 
-#: ../wp-math-captcha.php:913
+#: ../wp-math-captcha.php:856
 msgid "Display captcha as"
 msgstr "Wyśiwtlaj captcha jako"
 
-#: ../wp-math-captcha.php:914
+#: ../wp-math-captcha.php:857
 msgid "Captcha field title"
 msgstr "Tytuł pola captcha"
 
-#: ../wp-math-captcha.php:915
+#: ../wp-math-captcha.php:858
 msgid "Captcha time"
 msgstr "Czas captcha"
 
-#: ../wp-math-captcha.php:935
+#: ../wp-math-captcha.php:859
+msgid "Deactivation"
+msgstr "Deaktywacja wtyczki"
+
+#: ../wp-math-captcha.php:879
 msgid "Select were would you like to use Math Captcha."
 msgstr "Wybierz w których miejscach chcesz używać Math Captcha"
 
-#: ../wp-math-captcha.php:956
+#: ../wp-math-captcha.php:900
 msgid "Would you like to hide captcha for logged in users?"
 msgstr "Czy chcesz ukryć captcha dla zalogowanych użytkowników?"
 
-#: ../wp-math-captcha.php:969
+#: ../wp-math-captcha.php:913
 msgid ""
 "Select what kind of mathematical operations will be used to generate captcha."
 msgstr ""
 "Wybierz jakie rodzaje operacji matematycznych będą stosowane w captcha."
 
-#: ../wp-math-captcha.php:982
+#: ../wp-math-captcha.php:926
 msgid "Enter the time (in seconds) a user has to enter captcha value."
 msgstr "Podaj czas (w sekundach) w jakim należy uzupełnić pole captcha."
 
-#: ../wp-math-captcha.php:1003
+#: ../wp-math-captcha.php:947
+msgid "Delete settings on plugin deactivation"
+msgstr "Usuń wszystkie dane wtyczki podczas deaktywacji"
+
+#: ../wp-math-captcha.php:968
 msgid "Select which mathematical operations to use in your captcha."
 msgstr ""
 "Wybierz jakie rodzaje operacji matematycznych będą stosowane w captcha."
 
-#: ../wp-math-captcha.php:1024
+#: ../wp-math-captcha.php:989
 msgid "Select how you'd like to display you captcha."
 msgstr "Wybierz w jaki sposób chcesz wyświetlać captcha."
 
-#: ../wp-math-captcha.php:1069
+#: ../wp-math-captcha.php:1030
 msgid ""
 "You need to check at least one mathematical operation. Defaults settings of "
 "this option restored."
@@ -259,7 +267,7 @@ msgstr ""
 "Musisz wybrać przynajmniej jedną operację. Przywrócono domyślne ustawienie "
 "tej opcji."
 
-#: ../wp-math-captcha.php:1085
+#: ../wp-math-captcha.php:1046
 msgid ""
 "You need to check at least one group. Defaults settings of this option "
 "restored."
@@ -267,58 +275,58 @@ msgstr ""
 "Musisz wybrać przynajmniej jedną grupę. Przywrócono domyślne ustawienie tej "
 "opcji."
 
-#: ../wp-math-captcha.php:1115 ../wp-math-captcha.php:1116
-#: ../wp-math-captcha.php:1131 ../wp-math-captcha.php:1144
+#: ../wp-math-captcha.php:1080 ../wp-math-captcha.php:1081
+#: ../wp-math-captcha.php:1096 ../wp-math-captcha.php:1109
 #: ../includes/math-captcha-cf7.php:148
 msgid "Math Captcha"
 msgstr "Math Captcha"
 
-#: ../wp-math-captcha.php:1146
+#: ../wp-math-captcha.php:1111
 msgid "Need support?"
 msgstr "Potrzebujesz pomocy?"
 
-#: ../wp-math-captcha.php:1147
+#: ../wp-math-captcha.php:1112
 msgid ""
 "If you are having problems with this plugin, please talk about them in the"
 msgstr "Jeśli masz jakiekolwiek problemy z tą wtyczką, powiedz o tym na"
 
-#: ../wp-math-captcha.php:1147
+#: ../wp-math-captcha.php:1112
 msgid "Support forum"
 msgstr "Forum pomocy"
 
-#: ../wp-math-captcha.php:1149
+#: ../wp-math-captcha.php:1114
 msgid "Do you like this plugin?"
 msgstr "Lubisz tę wtyczkę?"
 
-#: ../wp-math-captcha.php:1150
+#: ../wp-math-captcha.php:1115
 msgid "Rate it 5"
 msgstr "Oceń ją na 5"
 
-#: ../wp-math-captcha.php:1150
+#: ../wp-math-captcha.php:1115
 msgid "on WordPress.org"
 msgstr "na WordPress.org"
 
-#: ../wp-math-captcha.php:1151
+#: ../wp-math-captcha.php:1116
 msgid "Blog about it & link to the"
 msgstr "Napisz o niej i dodaj link do"
 
-#: ../wp-math-captcha.php:1151
+#: ../wp-math-captcha.php:1116
 msgid "plugin page"
 msgstr "strony wtyczki"
 
-#: ../wp-math-captcha.php:1152
+#: ../wp-math-captcha.php:1117
 msgid "Check out our other"
 msgstr "Sprawdź nasze inne"
 
-#: ../wp-math-captcha.php:1152
+#: ../wp-math-captcha.php:1117
 msgid "WordPress plugins"
 msgstr "wtyczki do WordPressa"
 
-#: ../wp-math-captcha.php:1205
+#: ../wp-math-captcha.php:1170
 msgid "Support"
 msgstr "Forum pomocy"
 
-#: ../wp-math-captcha.php:1227
+#: ../wp-math-captcha.php:1192
 msgid "Settings"
 msgstr "Ustawienia"
 
@@ -649,12 +657,6 @@ msgstr "Skopij i wkej ten kod do formularza po lewej."
 
 #~ msgid "Display widget options in groups"
 #~ msgstr "Wyświetl opcje widgetów w grupach"
-
-#~ msgid "Plugin Deactivation"
-#~ msgstr "Deaktywacja wtyczki"
-
-#~ msgid "Remove all plugin data on deactivation"
-#~ msgstr "Usuń wszystkie dane wtyczki podczas deaktywacji"
 
 #~ msgid "Single %s"
 #~ msgstr "Pojedyncze %s"
