@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Math Captcha\n"
 "POT-Creation-Date: 2013-07-25 10:22+0100\n"
-"PO-Revision-Date: 2013-07-25 10:22+0100\n"
+"PO-Revision-Date: 2013-08-14 11:05+0100\n"
 "Last-Translator: Bartosz Arendt <info@digitalfactory.pl>\n"
 "Language-Team: dFactory <info@dfactory.eu>\n"
 "Language: English\n"
@@ -214,7 +214,7 @@ msgstr "Operacje matematyczne"
 
 #: ../wp-math-captcha.php:856
 msgid "Display captcha as"
-msgstr "Wyśiwtlaj captcha jako"
+msgstr "Wyświetlaj captcha jako"
 
 #: ../wp-math-captcha.php:857
 msgid "Captcha field title"

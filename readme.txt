@@ -3,8 +3,8 @@ Contributors: dfactory
 Donate link: http://www.dfactory.eu/
 Tags: antispam, capcha, captcha, captha, catcha, comment, comments, spam, security, login, lost password, math captcha, registration, cf7, contact, contact forms, form, contact form 7, bbpress
 Requires at least: 3.3
-Tested up to: 3.5.2
-Stable tag: 1.0.2
+Tested up to: 3.6
+Stable tag: 1.0.3
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -28,6 +28,7 @@ For more information, check out the [plugin page](http://www.dfactory.eu/plugins
 
 = Translations: =
 
+* German - by Stephan Hilchenbach
 * Polish - by Bartosz Arendt
 * Persian - by [Ali Mirzaei](http://alimir.ir/)
 
@@ -48,6 +49,9 @@ No questions yet.
 
 == Changelog ==
 
+= 1.0.3 =
+* New: German translation, thanks to Stephan Hilchenbach
+
 = 1.0.2 =
 * New: Option to delete plugin settings on deactivation
 * New: Persian translation by Ali Mirzaei
@@ -63,5 +67,5 @@ No questions yet.
 
 == Upgrade Notice ==
 
-= 1.0.2 =
-Fix: Final fix for Captcha time expired error
+= 1.0.3 =
+New: German translation, thanks to Stephan Hilchenbach
