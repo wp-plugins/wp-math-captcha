@@ -13,37 +13,46 @@ function wpcf7_add_shortcode_mathcaptcha()
 
 function wpcf7_mathcaptcha_shortcode_handler($tag)
 {
+	
 	global $mc_class;
-
-	$tag = new WPCF7_Shortcode($tag);
-
-	if(empty($tag->name))
-		return '';
-
-	$validation_error = wpcf7_get_validation_error($tag->name);
-	$class = wpcf7_form_controls_class($tag->type);
-
-	if($validation_error)
+	
+	if (!is_user_logged_in() || (is_user_logged_in() && $mc_class->options['hide_for_logged_users'] === FALSE))
 	{
-		$class .= ' wpcf7-not-valid';
+
+		$tag = new WPCF7_Shortcode($tag);
+	
+		if(empty($tag->name))
+			return '';
+	
+		$validation_error = wpcf7_get_validation_error($tag->name);
+		$class = wpcf7_form_controls_class($tag->type);
+	
+		if($validation_error)
+		{
+			$class .= ' wpcf7-not-valid';
+		}
+	
+		$atts = array();
+		$atts['size'] = 2;
+		$atts['maxlength'] = 2;
+		$atts['class'] = $tag->get_class_option($class);
+		$atts['id'] = $tag->get_option('id', 'id', true);
+		$atts['tabindex'] = $tag->get_option('tabindex', 'int', true);
+		$atts['aria-required'] = 'true';
+		$atts['type'] = 'text';
+		$atts['name'] = $tag->name;
+		$atts['value'] = '';
+		$atts = wpcf7_format_atts($atts);
+	
+		$mc_form = $mc_class->generate_captcha_phrase('cf7');
+		$mc_form[$mc_form['input']] = '<input %2$s />';
+		
+		$math_captcha_title = apply_filters('math_captcha_title', $mc_class->get_attribute('title'));
+	
+		return sprintf(((empty($math_captcha_title)) ? '' : ''.$math_captcha_title.'').'<span class="wpcf7-form-control-wrap %1$s">'.$mc_form[1].$mc_form[2].$mc_form[3].'%3$s', $tag->name, $atts, $validation_error);
+	
 	}
-
-	$atts = array();
-	$atts['size'] = 2;
-	$atts['maxlength'] = 2;
-	$atts['class'] = $tag->get_class_option($class);
-	$atts['id'] = $tag->get_option('id', 'id', true);
-	$atts['tabindex'] = $tag->get_option('tabindex', 'int', true);
-	$atts['aria-required'] = 'true';
-	$atts['type'] = 'text';
-	$atts['name'] = $tag->name;
-	$atts['value'] = '';
-	$atts = wpcf7_format_atts($atts);
-
-	$mc_form = $mc_class->generate_captcha_phrase('cf7');
-	$mc_form[$mc_form['input']] = '<input %2$s />';
-
-	return sprintf('<label>'.apply_filters('math_captcha_title', $mc_class->get_attribute('title')).'</label><br /><span class="wpcf7-form-control-wrap %1$s">'.$mc_form[1].$mc_form[2].$mc_form[3].'%3$s</span>', $tag->name, $atts, $validation_error);
+	
 }
 
 
