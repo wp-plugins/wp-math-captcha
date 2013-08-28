@@ -1,14 +1,14 @@
-=== Math Captcha ===
+﻿=== Math Captcha ===
 Contributors: dfactory
 Donate link: http://www.dfactory.eu/
 Tags: antispam, capcha, captcha, captha, catcha, comment, comments, spam, security, login, lost password, math captcha, registration, cf7, contact, contact forms, form, contact form 7, bbpress
 Requires at least: 3.3
-Tested up to: 3.5.1
-Stable tag: 1.0.0
+Tested up to: 3.6
+Stable tag: 1.0.4
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
-Math Captcha is a very effective CAPTCHA for WordPress that integrates into login, registration, comments, bbPress and Contact Form 7.
+Math Captcha is a very effective CAPTCHA for WordPress that integrates into login, registration, comments, Contact Form 7 and bbPress.
 
 == Description ==
 
@@ -18,7 +18,7 @@ For more information, check out the [plugin page](http://www.dfactory.eu/plugins
 
 = Features include: =
 
-* Select where to use math captcha: login, registration and lost password forms, comments, bbPress and Contact Form 7
+* Select where to use math captcha: login, registration and lost password forms, comments, Contact Form 7 and bbPress
 * Hiding captcha for logged in users
 * Select which mathematical operation to use
 * Displaying captcha as numbers and/or words
@@ -26,12 +26,19 @@ For more information, check out the [plugin page](http://www.dfactory.eu/plugins
 * Option to set captcha input time
 * .pot file for translations included
 
+= Translations: =
+
+* German - by Stephan Hilchenbach
+* Polish - by Bartosz Arendt
+* Persian - by [Ali Mirzaei](http://alimir.ir/)
+* Russian - by Valery Ryaboshapko
+
 
 == Installation ==
 
-1. Install Math Captcha either via the WordPress.org plugin directory, or by uploading the files to your server</li>
-1. Activate the plugin through the 'Plugins' menu in WordPress</li>
-1. Go to the Math Captcha menu and set your captcha display settings.</li>
+1. Install Math Captcha either via the WordPress.org plugin directory, or by uploading the files to your server
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Go to the Math Captcha menu and set your captcha display settings.
 
 == Frequently Asked Questions ==
 
@@ -43,10 +50,26 @@ No questions yet.
 
 == Changelog ==
 
+= 1.0.4 =
+* New: Russian translation, thanks to Valery Ryaboshapko
+
+= 1.0.3 =
+* New: German translation, thanks to Stephan Hilchenbach
+
+= 1.0.2 =
+* New: Option to delete plugin settings on deactivation
+* New: Persian translation by Ali Mirzaei
+* Fix: Captcha time expired error - thanks to Aaron and Simo 
+
+= 1.0.1 =
+* Fix: Math Captcha not available in Contact Form 7 if hide for logged in users selected
+* Fix: Captcha time expired error on bbPress 
+* Tweak: Empty captcha title
+
 = 1.0.0 =
 * Initial release
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-Initial Math Captcha release
+= 1.0.4 =
+New: Russian translation, thanks to Valery Ryaboshapko
