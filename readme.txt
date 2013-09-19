@@ -29,6 +29,7 @@ For more information, check out the [plugin page](http://www.dfactory.eu/plugins
 = Translations: =
 
 * German - by Stephan Hilchenbach
+* Japanese - by stranger-jp
 * Polish - by Bartosz Arendt
 * Persian - by [Ali Mirzaei](http://alimir.ir/)
 * Russian - by Valery Ryaboshapko
@@ -49,6 +50,9 @@ No questions yet.
 1. screenshot-1.png
 
 == Changelog ==
+
+= 1.0.5 =
+* New: Japanese translation, thanks to stranger-jp
 
 = 1.0.4 =
 * New: Russian translation, thanks to Valery Ryaboshapko
@@ -71,5 +75,5 @@ No questions yet.
 
 == Upgrade Notice ==
 
-= 1.0.4 =
-New: Russian translation, thanks to Valery Ryaboshapko
+= 1.0.5 =
+New: Japanese translation, thanks to stranger-jp
