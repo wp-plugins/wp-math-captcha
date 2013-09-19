@@ -3,8 +3,8 @@ Contributors: dfactory
 Donate link: http://www.dfactory.eu/
 Tags: antispam, capcha, captcha, captha, catcha, comment, comments, spam, security, login, lost password, math captcha, registration, cf7, contact, contact forms, form, contact form 7, bbpress
 Requires at least: 3.3
-Tested up to: 3.6
-Stable tag: 1.0.4
+Tested up to: 3.6.1
+Stable tag: 1.0.5
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
