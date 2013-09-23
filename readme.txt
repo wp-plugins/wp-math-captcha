@@ -28,6 +28,8 @@ For more information, check out the [plugin page](http://www.dfactory.eu/plugins
 
 = Translations: =
 
+* Dutch - by [Monique](http://www.datisslimbedacht.nl)
+* French - by sil3r
 * German - by Stephan Hilchenbach
 * Japanese - by stranger-jp
 * Polish - by Bartosz Arendt
@@ -50,6 +52,10 @@ No questions yet.
 1. screenshot-1.png
 
 == Changelog ==
+
+= 1.0.6 =
+* New: Dutch translation, thanks to [Monique](http://www.datisslimbedacht.nl)
+* New: French translation, thanks to sil3r
 
 = 1.0.5 =
 * New: Japanese translation, thanks to stranger-jp
@@ -75,5 +81,6 @@ No questions yet.
 
 == Upgrade Notice ==
 
-= 1.0.5 =
-New: Japanese translation, thanks to stranger-jp
+= 1.0.6 =
+* New: Dutch translation, thanks to Monique
+* New: French translation, thanks to sil3r
