@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Math Captcha
-Description: Math Captcha is a <strong>very effective CAPTCHA for WordPress</strong> that integrates into login, registration, comments, Contact Form 7 and bbPress.
+Description: Math Captcha is a <strong>100% effective CAPTCHA for WordPress</strong> that integrates into login, registration, comments, Contact Form 7 and bbPress.
 Version: 1.0.6
 Author: dFactory
 Author URI: http://www.dfactory.eu/
