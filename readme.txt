@@ -4,7 +4,7 @@ Donate link: http://www.dfactory.eu/
 Tags: antispam, capcha, captcha, captha, catcha, comment, comments, spam, security, login, lost password, math captcha, registration, cf7, contact, contact forms, form, contact form 7, bbpress
 Requires at least: 3.3
 Tested up to: 3.6.1
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -54,6 +54,9 @@ No questions yet.
 
 == Changelog ==
 
+= 1.0.8 =
+* Fix: Strict Standards warnings on some server setups.
+
 = 1.0.7 =
 * New: Italian translation, thanks to Alessandro Fiorotto
 
@@ -85,5 +88,5 @@ No questions yet.
 
 == Upgrade Notice ==
 
-= 1.0.7 =
-* New: Italian translation, thanks to Alessandro Fiorotto
+= 1.0.8 =
+* Fix: Strict Standards warnings on some server setups.
