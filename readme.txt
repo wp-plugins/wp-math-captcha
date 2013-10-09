@@ -28,6 +28,7 @@ For more information, check out the [plugin page](http://www.dfactory.eu/plugins
 
 = Translations: =
 
+* Chinese - by xiaoyaole
 * Dutch - by [Monique](http://www.datisslimbedacht.nl)
 * French - by sil3r
 * German - by Stephan Hilchenbach
@@ -53,6 +54,12 @@ No questions yet.
 1. screenshot-1.png
 
 == Changelog ==
+
+= 1.0.9 =
+* New: Multiple Math Captcha on one page support
+* New: Chinese translation, thanks to xiaoyaole
+* Fix: COntact Form 7 errors and general CF7 support
+* Tweak: crypt_key generation changed to AUTH_KEY usage
 
 = 1.0.8 =
 * Fix: Strict Standards warnings on some server setups.
@@ -88,5 +95,5 @@ No questions yet.
 
 == Upgrade Notice ==
 
-= 1.0.8 =
-* Fix: Strict Standards warnings on some server setups.
+= 1.0.9 =
+Chinese translation, fixed errors for CF7 and multiple Math Cpatchas on one page support

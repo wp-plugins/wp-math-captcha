@@ -19,33 +19,41 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+if(!defined('ABSPATH'))	exit; //exit if accessed directly
+
+new Math_Captcha();
 
 class Math_Captcha
 {
 	private $defaults = array(
-		'enable_for' => array(
-			'login_form' => FALSE,
-			'registration_form' => TRUE,
-			'reset_password_form' => TRUE,
-			'comment_form' => TRUE,
-			'bbpress' => FALSE,
-			'contact_form_7' => FALSE
+		'general' => array(
+			'enable_for' => array(
+				'login_form' => FALSE,
+				'registration_form' => TRUE,
+				'reset_password_form' => TRUE,
+				'comment_form' => TRUE,
+				'bbpress' => FALSE,
+				'contact_form_7' => FALSE
+			),
+			'hide_for_logged_users' => TRUE,
+			'title' => 'Math Captcha',
+			'mathematical_operations' => array(
+				'addition' => TRUE,
+				'subtraction' => TRUE,
+				'multiplication' => FALSE,
+				'division' => FALSE
+			),
+			'groups' => array(
+				'numbers' => TRUE,
+				'words' => FALSE
+			),
+			'time' => 300,
+			'deactivation_delete' => FALSE
 		),
-		'hide_for_logged_users' => TRUE,
-		'title' => 'Math Captcha',
-		'mathematical_operations' => array(
-			'addition' => TRUE,
-			'subtraction' => TRUE,
-			'multiplication' => FALSE,
-			'division' => FALSE
-		),
-		'groups' => array(
-			'numbers' => TRUE,
-			'words' => FALSE
-		),
-		'time' => 300,
-		'deactivation_delete' => FALSE
+		'version' => '1.0.9'
 	);
+	private $session_ids = array();
+	private $session_number = 0;
 	private $options = array();
 	private $choices = array();
 	private $enable_for = array();
@@ -53,9 +61,6 @@ class Math_Captcha
 	private $groups = array();
 	private $error_messages = array();
 	private $errors;
-	private $session_id = '';
-	private $crypt_key = 'u.%ds)4;?D<gM#%fd!W2]9';
-	private $err_msg = array();
 
 
 	public function __construct()
@@ -63,7 +68,19 @@ class Math_Captcha
 		register_activation_hook(__FILE__, array(&$this, 'activation'));
 		register_deactivation_hook(__FILE__, array(&$this, 'deactivation'));
 
-		$this->options = array_merge($this->defaults, get_option('mc_options'));
+		//changes from older versions
+		$db_version = get_option('math_captcha_version');
+
+		if(version_compare(($db_version === FALSE ? '1.0.0' : $db_version), '1.0.9', '<'))
+		{
+			if(($array = get_option('mc_options')) !== FALSE)
+			{
+				update_option('math_captcha_options', $array);
+				delete_option('mc_options');
+			}
+		}
+
+		$this->options['general'] = array_merge($this->defaults['general'], (($array = get_option('math_captcha_options')) === FALSE ? array() : $array));
 
 		//actions
 		add_action('plugins_loaded', array(&$this, 'init_mc_session'), 1);
@@ -82,6 +99,65 @@ class Math_Captcha
 
 
 	/**
+	 * Activation
+	*/
+	public function activation()
+	{
+		add_option('math_captcha_options', $this->defaults['general'], '', 'no');
+		update_option('math_captcha_version', $this->defaults['version'], '', 'no');
+	}
+
+
+	/**
+	 * Deactivation
+	*/
+	public function deactivation()
+	{
+		if($this->options['general']['deactivation_delete'] === TRUE)
+		{
+			delete_option('math_captcha_options');
+			delete_option('math_captcha_version');
+		}
+	}
+
+
+	/**
+	 * Gets error messages
+	*/
+	public function get_error_messages($error)
+	{
+		return $this->error_messages[$error];
+	}
+
+
+	/**
+	 * Gets options
+	*/
+	public function get_options($option)
+	{
+		return $this->options['general'][$option];
+	}
+
+
+	/**
+	 * Gets session's ID
+	*/
+	public function get_session_id($number = 0)
+	{
+		return $this->session_ids['multi'][$number];
+	}
+
+
+	/**
+	 * Gets session's number for Contact Form 7 multi instances
+	*/
+	public function get_session_number()
+	{
+		return $this->session_number;
+	}
+
+
+	/**
 	 * Loads required filters
 	*/
 	public function load_actions_filters()
@@ -89,13 +165,13 @@ class Math_Captcha
 		global $pagenow;
 
 		//comments
-		if($this->options['enable_for']['comment_form'] === TRUE)
+		if($this->options['general']['enable_for']['comment_form'] === TRUE)
 		{
 			if(!is_user_logged_in())
 				add_action('comment_form_after_fields', array(&$this, 'add_captcha_form'));
 			else
 			{
-				if($this->options['hide_for_logged_users'] === FALSE)
+				if($this->options['general']['hide_for_logged_users'] === FALSE)
 				{
 					add_action('comment_form_logged_in_after', array(&$this, 'add_captcha_form'));
 				}
@@ -109,7 +185,7 @@ class Math_Captcha
 		{
 			$action = (isset($_GET['action']) && $_GET['action'] !== '' ? $_GET['action'] : NULL);
 
-			if($this->options['enable_for']['registration_form'] === TRUE && (!is_user_logged_in() || (is_user_logged_in() && $this->options['hide_for_logged_users'] === FALSE)) && $action === 'register')
+			if($this->options['general']['enable_for']['registration_form'] === TRUE && (!is_user_logged_in() || (is_user_logged_in() && $this->options['general']['hide_for_logged_users'] === FALSE)) && $action === 'register')
 			{
 				add_action('register_form', array(&$this, 'add_captcha_form'));
 				add_action('register_post', array(&$this, 'add_user_with_captcha'), 10, 3);
@@ -117,13 +193,13 @@ class Math_Captcha
 				add_filter('wpmu_validate_user_signup', array(&$this, 'validate_user_with_captcha'));
 			}
 
-			if($this->options['enable_for']['reset_password_form'] === TRUE && (!is_user_logged_in() || (is_user_logged_in() && $this->options['hide_for_logged_users'] === FALSE)) && $action === 'lostpassword')
+			if($this->options['general']['enable_for']['reset_password_form'] === TRUE && (!is_user_logged_in() || (is_user_logged_in() && $this->options['general']['hide_for_logged_users'] === FALSE)) && $action === 'lostpassword')
 			{
 				add_action('lostpassword_form', array(&$this, 'add_captcha_form'));
 				add_action('lostpassword_post', array(&$this, 'check_lost_password_with_captcha'));
 			}
 
-			if($this->options['enable_for']['login_form'] === TRUE && (!is_user_logged_in() || (is_user_logged_in() && $this->options['hide_for_logged_users'] === FALSE)) && $action === NULL)
+			if($this->options['general']['enable_for']['login_form'] === TRUE && (!is_user_logged_in() || (is_user_logged_in() && $this->options['general']['hide_for_logged_users'] === FALSE)) && $action === NULL)
 			{
 				add_action('login_form', array(&$this, 'add_captcha_form'));
 				add_filter('login_redirect', array(&$this, 'redirect_login_with_captcha'), 10, 3);
@@ -131,11 +207,11 @@ class Math_Captcha
 		}
 
 		//bbPress
-		if($this->options['enable_for']['bbpress'] === TRUE)
+		if($this->options['general']['enable_for']['bbpress'] === TRUE)
 		{
 			include_once(ABSPATH.'wp-admin/includes/plugin.php');
 
-			if(is_plugin_active('bbpress/bbpress.php') && (!is_user_logged_in() || (is_user_logged_in() && $this->options['hide_for_logged_users'] === FALSE)))
+			if(is_plugin_active('bbpress/bbpress.php') && (!is_user_logged_in() || (is_user_logged_in() && $this->options['general']['hide_for_logged_users'] === FALSE)))
 			{
 				add_action('bbp_theme_after_reply_form_content', array(&$this, 'add_bbp_captcha_form'));
 				add_action('bbp_theme_after_topic_form_content', array(&$this, 'add_bbp_captcha_form'));
@@ -145,7 +221,7 @@ class Math_Captcha
 		}
 
 		//Contact Form 7
-		if($this->options['enable_for']['contact_form_7'] === TRUE)
+		if($this->options['general']['enable_for']['contact_form_7'] === TRUE)
 		{
 			include_once(ABSPATH.'wp-admin/includes/plugin.php');
 
@@ -156,26 +232,6 @@ class Math_Captcha
 
 				include_once('includes/math-captcha-cf7.php');
 			}
-		}
-	}
-
-
-	/**
-	 * Gets attribute from options
-	*/
-	public function get_attribute($attr)
-	{
-		switch($attr)
-		{
-			case 'session_id':
-			case 'crypt_key':
-				return $this->{$attr};
-
-			case 'title':
-				return $this->options['title'];
-
-			default:
-				return '';
 		}
 	}
 
@@ -192,16 +248,16 @@ class Math_Captcha
 		//checks captcha
 		if(isset($_POST['mc-value']) && $_POST['mc-value'] !== '')
 		{
-			if($this->session_id !== '' && get_transient('mc_'.$this->session_id) !== FALSE)
+			if($this->session_ids['default'] !== '' && get_transient('mc_'.$this->session_ids['default']) !== FALSE)
 			{
-				if(strcmp(get_transient('mc_'.$this->session_id), sha1($this->crypt_key.$_POST['mc-value'].$this->session_id, FALSE)) !== 0)
-					$this->errors->add('math-captcha-error', $this->err_msg['wrong']);
+				if(strcmp(get_transient('mc_'.$this->session_ids['default']), sha1(AUTH_KEY.$_POST['mc-value'].$this->session_ids['default'], FALSE)) !== 0)
+					$this->errors->add('math-captcha-error', $this->error_messages['wrong']);
 			}
 			else
-				$this->errors->add('math-captcha-error', $this->err_msg['time']);
+				$this->errors->add('math-captcha-error', $this->error_messages['time']);
 		}
 		else
-			$this->errors->add('math-captcha-error', $this->err_msg['fill']);
+			$this->errors->add('math-captcha-error', $this->error_messages['fill']);
 
 		//checks user_login (from wp-login.php)
 		if(empty($_POST['user_login']))
@@ -256,18 +312,40 @@ class Math_Captcha
 	{
 		if(isset($_POST['mc-value']) && $_POST['mc-value'] !== '')
 		{
-			if($this->session_id !== '' && get_transient('mc_'.$this->session_id) !== FALSE)
+			if($this->session_ids['default'] !== '' && get_transient('mc_'.$this->session_ids['default']) !== FALSE)
 			{
-				if(strcmp(get_transient('mc_'.$this->session_id), sha1($this->crypt_key.$_POST['mc-value'].$this->session_id, FALSE)) !== 0)
-					$errors->add('math-captcha-error', $this->err_msg['wrong']);
+				if(strcmp(get_transient('mc_'.$this->session_ids['default']), sha1(AUTH_KEY.$_POST['mc-value'].$this->session_ids['default'], FALSE)) !== 0)
+					$errors->add('math-captcha-error', $this->error_messages['wrong']);
 			}
 			else
-				$errors->add('math-captcha-error', $this->err_msg['time']);
+				$errors->add('math-captcha-error', $this->error_messages['time']);
 		}
 		else
-			$errors->add('math-captcha-error', $this->err_msg['fill']);
+			$errors->add('math-captcha-error', $this->error_messages['fill']);
 
 		return $errors;
+	}
+
+
+	/**
+	 * Validates register form
+	*/
+	public function validate_user_with_captcha($result)
+	{
+		if(isset($_POST['mc-value']) && $_POST['mc-value'] !== '')
+		{
+			if($this->session_ids['default'] !== '' && get_transient('mc_'.$this->session_ids['default']) !== FALSE)
+			{
+				if(strcmp(get_transient('mc_'.$this->session_ids['default']), sha1(AUTH_KEY.$_POST['mc-value'].$this->session_ids['default'], FALSE)) !== 0)
+					$results['errors']->add('math-captcha-error', $this->error_messages['wrong']);
+			}
+			else
+				$results['errors']->add('math-captcha-error', $this->error_messages['time']);
+		}
+		else
+			$results['errors']->add('math-captcha-error', $this->error_messages['fill']);
+
+		return $results;
 	}
 
 
@@ -281,30 +359,30 @@ class Math_Captcha
 
 		if(isset($_GET['captcha']) && in_array($_GET['captcha'], array('fill', 'wrong', 'time'), TRUE))
 		{
-			$errors->add('math-captcha-error', $this->err_msg[$_GET['captcha']]);
+			$errors->add('math-captcha-error', $this->error_messages[$_GET['captcha']]);
 		}
 
 		if(!empty($_POST))
 		{
 			if(isset($_POST['mc-value']) && $_POST['mc-value'] !== '')
 			{
-				if($this->session_id !== '' && get_transient('mc_'.$this->session_id) !== FALSE)
+				if($this->session_ids['default'] !== '' && get_transient('mc_'.$this->session_ids['default']) !== FALSE)
 				{
-					if(strcmp(get_transient('mc_'.$this->session_id), sha1($this->crypt_key.$_POST['mc-value'].$this->session_id, FALSE)) !== 0)
+					if(strcmp(get_transient('mc_'.$this->session_ids['default']), sha1(AUTH_KEY.$_POST['mc-value'].$this->session_ids['default'], FALSE)) !== 0)
 					{
-						$error = (!is_wp_error($errors) ? TRUE : $errors->add('math-captcha-error', $this->err_msg['wrong']));
+						$error = (!is_wp_error($errors) ? TRUE : $errors->add('math-captcha-error', $this->error_messages['wrong']));
 						$act = 'wrong';
 					}
 				}
 				else
 				{
-					$error = (!is_wp_error($errors) ? TRUE : $errors->add('math-captcha-error', $this->err_msg['time']));
+					$error = (!is_wp_error($errors) ? TRUE : $errors->add('math-captcha-error', $this->error_messages['time']));
 					$act = 'time';
 				}
 			}
 			else
 			{
-				$error = (!is_wp_error($errors) ? TRUE : $errors->add('math-captcha-error', $this->err_msg['fill']));
+				$error = (!is_wp_error($errors) ? TRUE : $errors->add('math-captcha-error', $this->error_messages['fill']));
 				$act = 'fill';
 			}
 		}
@@ -331,28 +409,6 @@ class Math_Captcha
 
 
 	/**
-	 * Validates register form
-	*/
-	public function validate_user_with_captcha($result)
-	{
-		if(isset($_POST['mc-value']) && $_POST['mc-value'] !== '')
-		{
-			if($this->session_id !== '' && get_transient('mc_'.$this->session_id) !== FALSE)
-			{
-				if(strcmp(get_transient('mc_'.$this->session_id), sha1($this->crypt_key.$_POST['mc-value'].$this->session_id, FALSE)) !== 0)
-					$results['errors']->add('math-captcha-error', $this->err_msg['wrong']);
-			}
-			else
-				$results['errors']->add('math-captcha-error', $this->err_msg['time']);
-		}
-		else
-			$results['errors']->add('math-captcha-error', $this->err_msg['fill']);
-
-		return $results;
-	}
-
-
-	/**
 	 * Adds captcha to comment form
 	*/
 	public function add_comment_with_captcha($comment)
@@ -361,18 +417,18 @@ class Math_Captcha
 		{
 			if($_POST['mc-value'] !== '')
 			{
-				if($this->session_id !== '' && get_transient('mc_'.$this->session_id) !== FALSE)
+				if($this->session_ids['default'] !== '' && get_transient('mc_'.$this->session_ids['default']) !== FALSE)
 				{
-					if(strcmp(get_transient('mc_'.$this->session_id), sha1($this->crypt_key.$_POST['mc-value'].$this->session_id, FALSE)) === 0)
+					if(strcmp(get_transient('mc_'.$this->session_ids['default']), sha1(AUTH_KEY.$_POST['mc-value'].$this->session_ids['default'], FALSE)) === 0)
 						return $comment;
 					else
-						wp_die($this->err_msg['wrong']);
+						wp_die($this->error_messages['wrong']);
 				}
 				else
-					wp_die($this->err_msg['time']);
+					wp_die($this->error_messages['time']);
 			}
 			else
-				wp_die($this->err_msg['fill']);
+				wp_die($this->error_messages['fill']);
 		}
 		else
 			return $comment;
@@ -384,12 +440,34 @@ class Math_Captcha
 	*/
 	public function init_mc_session()
 	{
-		if(isset($_COOKIE['mc_session_id']))
-			$this->session_id = $_COOKIE['mc_session_id'];
+		if(isset($_COOKIE['mc_session_ids']))
+			$this->session_ids = $_COOKIE['mc_session_ids'];
 		else
-			$this->session_id = sha1(wp_generate_password(64, TRUE, TRUE));
+		{
+			foreach(array('default', 'multi') as $place)
+			{
+				switch($place)
+				{
+					case 'multi':
+						for($i = 0; $i < 5; $i++)
+						{
+							$this->session_ids[$place][$i] = sha1(wp_generate_password(64, FALSE, FALSE));
+						}
+						break;
 
-		setcookie('mc_session_id', $this->session_id, current_time('timestamp', TRUE) + apply_filters('math_captcha_time', $this->options['time']), COOKIEPATH, COOKIE_DOMAIN);
+					case 'default':
+						$this->session_ids[$place] = sha1(wp_generate_password(64, FALSE, FALSE));
+						break;
+				}
+			}
+		}
+
+		setcookie('mc_session_ids[default]', $this->session_ids['default'], current_time('timestamp', TRUE) + apply_filters('math_captcha_time', $this->options['general']['time']), COOKIEPATH, COOKIE_DOMAIN);
+
+		for($i = 0; $i < 5; $i++)
+		{
+			setcookie('mc_session_ids[multi]['.$i.']', $this->session_ids['multi'][$i], current_time('timestamp', TRUE) + apply_filters('math_captcha_time', $this->options['general']['time']), COOKIEPATH, COOKIE_DOMAIN);
+		}
 	}
 
 
@@ -401,7 +479,7 @@ class Math_Captcha
 		if(is_admin())
 			return;
 
-		$captcha_title = apply_filters('math_captcha_title', $this->options['title']);
+		$captcha_title = apply_filters('math_captcha_title', $this->options['general']['title']);
 
 		echo '
 		<p class="math-captcha-form">';
@@ -424,7 +502,7 @@ class Math_Captcha
 		if(is_admin())
 			return;
 
-		$captcha_title = apply_filters('math_captcha_title', $this->options['title']);
+		$captcha_title = apply_filters('math_captcha_title', $this->options['general']['title']);
 
 		echo '
 		<p class="math-captcha-form">';
@@ -446,16 +524,16 @@ class Math_Captcha
 	{
 		if(isset($_POST['mc-value']) && $_POST['mc-value'] !== '')
 		{
-			if($this->session_id !== '' && get_transient('bbp_'.$this->session_id) !== FALSE)
+			if($this->session_ids['default'] !== '' && get_transient('bbp_'.$this->session_ids['default']) !== FALSE)
 			{
-				if(strcmp(get_transient('bbp_'.$this->session_id), sha1($this->crypt_key.$_POST['mc-value'].$this->session_id, FALSE)) !== 0)
-					bbp_add_error('math-captcha-wrong', $this->err_msg['wrong']);
+				if(strcmp(get_transient('bbp_'.$this->session_ids['default']), sha1(AUTH_KEY.$_POST['mc-value'].$this->session_ids['default'], FALSE)) !== 0)
+					bbp_add_error('math-captcha-wrong', $this->error_messages['wrong']);
 			}
 			else
-				bbp_add_error('math-captcha-wrong', $this->err_msg['time']);
+				bbp_add_error('math-captcha-wrong', $this->error_messages['time']);
 		}
 		else
-			bbp_add_error('math-captcha-wrong', $this->err_msg['fill']);
+			bbp_add_error('math-captcha-wrong', $this->error_messages['fill']);
 	}
 
 
@@ -568,17 +646,17 @@ class Math_Captcha
 		);
 
 		$operations = $groups = array();
-		$input = '<input type="text" size="2" length="2" id="mc-input" name="mc-value" value="" aria-required="true" style="width:50px;" />';
+		$input = '<input type="text" size="2" length="2" id="mc-input" name="mc-value" value="" aria-required="true" />';
 
 		//available operations
-		foreach($this->options['mathematical_operations'] as $operation => $enable)
+		foreach($this->options['general']['mathematical_operations'] as $operation => $enable)
 		{
 			if($enable === TRUE)
 				$operations[] = $operation;
 		}
 
 		//available groups
-		foreach($this->options['groups'] as $group => $enable)
+		foreach($this->options['general']['groups'] as $group => $enable)
 		{
 			if($enable === TRUE)
 				$groups[] = $group;
@@ -594,6 +672,7 @@ class Math_Captcha
 		//place where to put empty input
 		$rnd_input = mt_rand(0, 2);
 
+		//which random operation
 		switch($rnd_op)
 		{
 			case 'addition':
@@ -749,6 +828,7 @@ class Math_Captcha
 				$return = $this->encode_operation($number[0]).' '.$number[3].' '.$this->encode_operation($number[1]).' = '.$input;
 
 			$transient_name = ($form === 'bbpress' ? 'bbp' : 'mc');
+			$session_id = $this->session_ids['default'];
 		}
 		elseif($form === 'cf7')
 		{
@@ -774,30 +854,12 @@ class Math_Captcha
 			}
 
 			$transient_name = 'cf7';
+			$session_id = $this->session_ids['multi'][$this->session_number++];
 		}
 
-		set_transient($transient_name.'_'.$this->session_id, sha1($this->crypt_key.$number[$rnd_input].$this->session_id, FALSE), apply_filters('math_captcha_time', $this->options['time']));
+		set_transient($transient_name.'_'.$session_id, sha1(AUTH_KEY.$number[$rnd_input].$session_id, FALSE), apply_filters('math_captcha_time', $this->options['general']['time']));
 
 		return $return;
-	}
-
-
-	/**
-	 * Activation
-	*/
-	public function activation()
-	{
-		add_option('mc_options', $this->defaults, '', 'no');
-	}
-
-
-	/**
-	 * Deactivation
-	*/
-	public function deactivation()
-	{
-		if($this->options['deactivation_delete'] === TRUE)
-			delete_option('mc_options');
 	}
 
 
@@ -806,7 +868,7 @@ class Math_Captcha
 	*/
 	public function load_defaults()
 	{
-		$this->err_msg = array(
+		$this->error_messages = array(
 			'fill' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Please enter captcha value.', 'math-captcha'),
 			'wrong' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Invalid captcha value.', 'math-captcha'),
 			'time' => '<strong>'. __('ERROR', 'math-captcha').'</strong>: '.__('Captcha time expired.', 'math-captcha')
@@ -846,15 +908,15 @@ class Math_Captcha
 	public function register_settings()
 	{
 		//inline edit
-		register_setting('mc_options', 'mc_options', array(&$this, 'validate_configuration'));
-		add_settings_section('math_captcha_settings', __('Math Captcha settings', 'math-captcha'), '', 'mc_options');
-		add_settings_field('mc_enable_for', __('Enable Math Captcha for', 'math-captcha'), array(&$this, 'mc_enable_captcha_for'), 'mc_options', 'math_captcha_settings');
-		add_settings_field('mc_hide_for_logged_users', __('Hide for logged in users', 'math-captcha'), array(&$this, 'mc_hide_for_logged_users'), 'mc_options', 'math_captcha_settings');
-		add_settings_field('mc_mathematical_operations', __('Mathematical operations', 'math-captcha'), array(&$this, 'mc_mathematical_operations'), 'mc_options', 'math_captcha_settings');
-		add_settings_field('mc_groups', __('Display captcha as', 'math-captcha'), array(&$this, 'mc_groups'), 'mc_options', 'math_captcha_settings');
-		add_settings_field('mc_title', __('Captcha field title', 'math-captcha'), array(&$this, 'mc_title'), 'mc_options', 'math_captcha_settings');
-		add_settings_field('mc_time', __('Captcha time', 'math-captcha'), array(&$this, 'mc_time'), 'mc_options', 'math_captcha_settings');
-		add_settings_field('mc_deactivation_delete', __('Deactivation', 'math-captcha'), array(&$this, 'mc_deactivation_delete'), 'mc_options', 'math_captcha_settings');
+		register_setting('math_captcha_options', 'math_captcha_options', array(&$this, 'validate_configuration'));
+		add_settings_section('math_captcha_settings', __('Math Captcha settings', 'math-captcha'), '', 'math_captcha_options');
+		add_settings_field('mc_enable_for', __('Enable Math Captcha for', 'math-captcha'), array(&$this, 'mc_enable_captcha_for'), 'math_captcha_options', 'math_captcha_settings');
+		add_settings_field('mc_hide_for_logged_users', __('Hide for logged in users', 'math-captcha'), array(&$this, 'mc_hide_for_logged_users'), 'math_captcha_options', 'math_captcha_settings');
+		add_settings_field('mc_mathematical_operations', __('Mathematical operations', 'math-captcha'), array(&$this, 'mc_mathematical_operations'), 'math_captcha_options', 'math_captcha_settings');
+		add_settings_field('mc_groups', __('Display captcha as', 'math-captcha'), array(&$this, 'mc_groups'), 'math_captcha_options', 'math_captcha_settings');
+		add_settings_field('mc_title', __('Captcha field title', 'math-captcha'), array(&$this, 'mc_title'), 'math_captcha_options', 'math_captcha_settings');
+		add_settings_field('mc_time', __('Captcha time', 'math-captcha'), array(&$this, 'mc_time'), 'math_captcha_options', 'math_captcha_settings');
+		add_settings_field('mc_deactivation_delete', __('Deactivation', 'math-captcha'), array(&$this, 'mc_deactivation_delete'), 'math_captcha_options', 'math_captcha_settings');
 	}
 
 
@@ -869,7 +931,7 @@ class Math_Captcha
 		foreach($this->enable_for as $val => $trans)
 		{
 			echo '
-			<input id="mc-enable-for-'.$val.'" type="checkbox" name="mc_options[enable_for][]" value="'.$val.'" '.checked(TRUE, $this->options['enable_for'][$val], FALSE).' '.disabled((($val === 'contact_form_7' && !is_plugin_active('contact-form-7/wp-contact-form-7.php')) || ($val === 'bbpress' && !is_plugin_active('bbpress/bbpress.php'))), TRUE, FALSE).' />
+			<input id="mc-enable-for-'.$val.'" type="checkbox" name="math_captcha_options[enable_for][]" value="'.$val.'" '.checked(TRUE, $this->options['general']['enable_for'][$val], FALSE).' '.disabled((($val === 'contact_form_7' && !is_plugin_active('contact-form-7/wp-contact-form-7.php')) || ($val === 'bbpress' && !is_plugin_active('bbpress/bbpress.php'))), TRUE, FALSE).' />
 			<label for="mc-enable-for-'.$val.'">'.$trans.'</label>';
 		}
 
@@ -890,7 +952,7 @@ class Math_Captcha
 		foreach($this->choices as $val => $trans)
 		{
 			echo '
-			<input id="mc-hide-for-logged-'.$val.'" type="radio" name="mc_options[hide_for_logged_users]" value="'.$val.'" '.checked(($val === 'yes' ? TRUE : FALSE), $this->options['hide_for_logged_users'], FALSE).' />
+			<input id="mc-hide-for-logged-'.$val.'" type="radio" name="math_captcha_options[hide_for_logged_users]" value="'.$val.'" '.checked(($val === 'yes' ? TRUE : FALSE), $this->options['general']['hide_for_logged_users'], FALSE).' />
 			<label for="mc-hide-for-logged-'.$val.'">'.$trans.'</label>';
 		}
 
@@ -907,7 +969,7 @@ class Math_Captcha
 	{
 		echo '
 		<div>
-			<input type="text" name="mc_options[title]" value="'.$this->options['title'].'" />
+			<input type="text" name="math_captcha_options[title]" value="'.$this->options['general']['title'].'" />
 			<p class="description">'.__('How to entitle field with captcha?', 'math-captcha').'</p>
 		</div>';
 	}
@@ -920,7 +982,7 @@ class Math_Captcha
 	{
 		echo '
 		<div>
-			<input type="text" name="mc_options[time]" value="'.$this->options['time'].'" />
+			<input type="text" name="math_captcha_options[time]" value="'.$this->options['general']['time'].'" />
 			<p class="description">'.__('Enter the time (in seconds) a user has to enter captcha value.', 'math-captcha').'</p>
 		</div>';
 	}
@@ -937,7 +999,7 @@ class Math_Captcha
 		foreach($this->choices as $val => $trans)
 		{
 			echo '
-			<input id="mc-deactivation-delete-'.$val.'" type="radio" name="mc_options[deactivation_delete]" value="'.$val.'" '.checked(($val === 'yes' ? TRUE : FALSE), $this->options['deactivation_delete'], FALSE).' />
+			<input id="mc-deactivation-delete-'.$val.'" type="radio" name="math_captcha_options[deactivation_delete]" value="'.$val.'" '.checked(($val === 'yes' ? TRUE : FALSE), $this->options['general']['deactivation_delete'], FALSE).' />
 			<label for="mc-deactivation-delete-'.$val.'">'.$trans.'</label>';
 		}
 
@@ -958,7 +1020,7 @@ class Math_Captcha
 		foreach($this->mathematical_operations as $val => $trans)
 		{
 			echo '
-			<input id="mc-mathematical-operations-'.$val.'" type="checkbox" name="mc_options[mathematical_operations][]" value="'.$val.'" '.checked(TRUE, $this->options['mathematical_operations'][$val], FALSE).' />
+			<input id="mc-mathematical-operations-'.$val.'" type="checkbox" name="math_captcha_options[mathematical_operations][]" value="'.$val.'" '.checked(TRUE, $this->options['general']['mathematical_operations'][$val], FALSE).' />
 			<label for="mc-mathematical-operations-'.$val.'">'.$trans.'</label>';
 		}
 
@@ -979,7 +1041,7 @@ class Math_Captcha
 		foreach($this->groups as $val => $trans)
 		{
 			echo '
-			<input id="mc-groups-'.$val.'" type="checkbox" name="mc_options[groups][]" value="'.$val.'" '.checked(TRUE, $this->options['groups'][$val], FALSE).' />
+			<input id="mc-groups-'.$val.'" type="checkbox" name="math_captcha_options[groups][]" value="'.$val.'" '.checked(TRUE, $this->options['general']['groups'][$val], FALSE).' />
 			<label for="mc-groups-'.$val.'">'.$trans.'</label>';
 		}
 
@@ -994,7 +1056,7 @@ class Math_Captcha
 	*/
 	public function validate_configuration($input)
 	{
-		if(isset($_POST['save_mc_options']))
+		if(isset($_POST['save_math_captcha_options']))
 		{
 			$enable_for = array();
 			$mathematical_operations = array();
@@ -1002,7 +1064,7 @@ class Math_Captcha
 
 			if(empty($input['enable_for']))
 			{
-				foreach($this->defaults['enable_for'] as $enable => $bool)
+				foreach($this->defaults['general']['enable_for'] as $enable => $bool)
 				{
 					$input['enable_for'][$enable] = FALSE;
 				}
@@ -1017,17 +1079,17 @@ class Math_Captcha
 				$input['enable_for'] = $enable_for;
 			}
 
-			if(!is_plugin_active('contact-form-7/wp-contact-form-7.php') && $this->options['enable_for']['contact_form_7'] === TRUE)
+			if(!is_plugin_active('contact-form-7/wp-contact-form-7.php') && $this->options['general']['enable_for']['contact_form_7'] === TRUE)
 				$input['enable_for']['contact_form_7'] = TRUE;
 
-			if(!is_plugin_active('bbpress/bbpress.php') && $this->options['enable_for']['bbpress'] === TRUE)
+			if(!is_plugin_active('bbpress/bbpress.php') && $this->options['general']['enable_for']['bbpress'] === TRUE)
 				$input['enable_for']['bbpress'] = TRUE;
 
 			if(empty($input['mathematical_operations']))
 			{
 				add_settings_error('empty-operations', 'settings_updated', __('You need to check at least one mathematical operation. Defaults settings of this option restored.', 'math-captcha'), 'error');
 
-				$input['mathematical_operations'] = $this->defaults['mathematical_operations'];
+				$input['mathematical_operations'] = $this->defaults['general']['mathematical_operations'];
 			}
 			else
 			{
@@ -1043,7 +1105,7 @@ class Math_Captcha
 			{
 				add_settings_error('empty-groups', 'settings_updated', __('You need to check at least one group. Defaults settings of this option restored.', 'math-captcha'), 'error');
 
-				$input['groups'] = $this->defaults['groups'];
+				$input['groups'] = $this->defaults['general']['groups'];
 			}
 			else
 			{
@@ -1055,14 +1117,14 @@ class Math_Captcha
 				$input['groups'] = $groups;
 			}
 
-			$input['hide_for_logged_users'] = (isset($input['hide_for_logged_users']) && in_array($input['hide_for_logged_users'], array_keys($this->choices)) ? ($input['hide_for_logged_users'] === 'yes' ? TRUE : FALSE) : $this->defaults['hide_for_logged_users']);
+			$input['hide_for_logged_users'] = (isset($input['hide_for_logged_users']) && in_array($input['hide_for_logged_users'], array_keys($this->choices)) ? ($input['hide_for_logged_users'] === 'yes' ? TRUE : FALSE) : $this->defaults['general']['hide_for_logged_users']);
 			
-			$input['deactivation_delete'] = (isset($input['deactivation_delete']) && in_array($input['deactivation_delete'], array_keys($this->choices)) ? ($input['deactivation_delete'] === 'yes' ? TRUE : FALSE) : $this->options['deactivation_delete']);
+			$input['deactivation_delete'] = (isset($input['deactivation_delete']) && in_array($input['deactivation_delete'], array_keys($this->choices)) ? ($input['deactivation_delete'] === 'yes' ? TRUE : FALSE) : $this->options['general']['deactivation_delete']);
 
 			$input['title'] = trim(sanitize_text_field($input['title']));
 
 			$time = (int)$input['time'];
-			$input['time'] = ($time < 0 ? $this->defaults['time'] : $time);
+			$input['time'] = ($time < 0 ? $this->defaults['general']['time'] : $time);
 		}
 
 		return $input;
@@ -1096,9 +1158,9 @@ class Math_Captcha
 				<form action="options.php" method="post">';
 
 		wp_nonce_field('update-options');
-		settings_fields('mc_options');
-		do_settings_sections('mc_options');
-		submit_button('', 'primary', 'save_mc_options', TRUE);
+		settings_fields('math_captcha_options');
+		do_settings_sections('math_captcha_options');
+		submit_button('', 'primary', 'save_math_captcha_options', TRUE);
 
 		echo '
 				</form>
@@ -1194,6 +1256,4 @@ class Math_Captcha
 		return $links;
 	}
 }
-
-$math_captcha = new Math_Captcha();
 ?>
