@@ -4,7 +4,7 @@ Donate link: http://www.dfactory.eu/
 Tags: antispam, capcha, captcha, captha, catcha, comment, comments, spam, security, login, lost password, math captcha, registration, cf7, contact, contact forms, form, contact form 7, bbpress
 Requires at least: 3.3
 Tested up to: 3.6.1
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -22,6 +22,7 @@ For more information, check out the [plugin page](http://www.dfactory.eu/plugins
 * Hiding captcha for logged in users
 * Select which mathematical operation to use
 * Displaying captcha as numbers and/or words
+* Multiple captcha on one page support
 * Option to set captcha field title
 * Option to set captcha input time
 * .pot file for translations included
