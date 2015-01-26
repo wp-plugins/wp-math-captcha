@@ -95,7 +95,7 @@ class Math_Captcha_Settings
 							<img alt="" border="0" src="https://www.paypalobjects.com/pl_PL/i/scr/pixel.gif" width="1" height="1">
 						</form>
 						<hr/>
-						<p class="df-link inner">Created by <a href="http://www.dfactory.eu/?utm_source=math-captcha-settings&utm_medium=link&utm_campaign=created-by" target="_blank" title="dFactory - Quality plugins for WordPress"><img src="'.DOWNLOAD_ATTACHMENTS_URL.'/images/logo-dfactory.png" title="dFactory - Quality plugins for WordPress" alt="dFactory - Quality plugins for WordPress"/></a></p>
+						<p class="df-link inner">Created by <a href="http://www.dfactory.eu/?utm_source=math-captcha-settings&utm_medium=link&utm_campaign=created-by" target="_blank" title="dFactory - Quality plugins for WordPress"><img src="'.MATH_CAPTCHA_URL.'/images/logo-dfactory.png" title="dFactory - Quality plugins for WordPress" alt="dFactory - Quality plugins for WordPress"/></a></p>
 					</div>
 				</div>
 				<form action="options.php" method="post">';
@@ -266,9 +266,9 @@ class Math_Captcha_Settings
 		echo '
 		<div id="mc_general_block_direct_comments">
 			<fieldset>
-				<input id="mc-general-block-direct-comments" type="checkbox" name="math_captcha_options[block_direct_comments]" '.checked(true, Math_Captcha()->options['general']['block_direct_comments'], false).'/><label for="mc-general-block-direct-comments">'.__('Blocks direct access to wp-comments-post.php. Enable this to prevent spambots from posting to Wordpress via a URL.', 'math-captcha').'</label>
+				<input id="mc-general-block-direct-comments" type="checkbox" name="math_captcha_options[block_direct_comments]" '.checked(true, Math_Captcha()->options['general']['block_direct_comments'], false).'/><label for="mc-general-block-direct-comments">'.__('Block direct access to wp-comments-post.php.', 'math-captcha').'</label>
 				<br/>
-				<span class="description">'.__('Blocks direct access to wp-comments-post.php. Enable this to prevent spambots from posting to Wordpress via a URL.', 'math-captcha').'</span>
+				<span class="description">'.__('Enable this to prevent spambots from posting to Wordpress via a URL.', 'math-captcha').'</span>
 			</fieldset>
 		</div>';
 	}

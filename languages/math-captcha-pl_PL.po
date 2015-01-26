@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Math Captcha\n"
-"POT-Creation-Date: 2014-09-05 17:19+0100\n"
-"PO-Revision-Date: 2014-09-05 17:20+0100\n"
+"POT-Creation-Date: 2015-01-25 22:43+0100\n"
+"PO-Revision-Date: 2015-01-25 22:44+0100\n"
 "Last-Translator: Bartosz Arendt <info@dfactory.eu>\n"
 "Language-Team: dFactory <info@dfactory.eu>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.7.3\n"
 "X-Poedit-KeywordsList: gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -283,37 +283,46 @@ msgstr "Wybierz w których miejscach chcesz używać Math Captcha."
 msgid "Enable to hide captcha for logged in users."
 msgstr "Włącz aby ukryć captcha dla zalogowanych użytkowników."
 
-#: ../includes/class-settings.php:198
+#: ../includes/class-settings.php:177
+msgid "Would you like to hide captcha for logged in users?"
+msgstr "Chesz ukryć captcha dla zalogowanych użytkowników?"
+
+#: ../includes/class-settings.php:200
 msgid "Select which mathematical operations to use in your captcha."
 msgstr ""
 "Wybierz jakie rodzaje operacji matematycznych będą stosowane w captcha."
 
-#: ../includes/class-settings.php:221
+#: ../includes/class-settings.php:223
 msgid "Select how you'd like to display you captcha."
 msgstr "Wybierz w jaki sposób chcesz wyświetlać captcha."
 
-#: ../includes/class-settings.php:237
+#: ../includes/class-settings.php:239
 msgid "How to entitle field with captcha?"
 msgstr "Jaki tytuł będzie miało pole z captcha?"
 
-#: ../includes/class-settings.php:253
+#: ../includes/class-settings.php:255
 msgid "Enter the time (in seconds) a user has to enter captcha value."
 msgstr "Podaj czas (w sekundach) w jakim należy uzupełnić pole captcha."
 
-#: ../includes/class-settings.php:267
-msgid ""
-"Blocks direct access to wp-comments-post.php. Enable this to prevent "
-"spambots from posting to Wordpress via a URL."
+#: ../includes/class-settings.php:269
+msgid "Block direct access to wp-comments-post.php."
+msgstr "Blokuj bezpośredni dostęp do wp-comments-post.php."
+
+#: ../includes/class-settings.php:271
+msgid "Enable this to prevent spambots from posting to Wordpress via a URL."
 msgstr ""
-"To ustawienie blokuje bezpośredni dostęp do pliku wp-comments-post.php. "
 "Włącz to jeśli chcesz uniemożliwiść spambotom dodawanie komentarzy poprzez "
 "URL."
 
-#: ../includes/class-settings.php:281
+#: ../includes/class-settings.php:285
 msgid "Delete settings on plugin deactivation."
 msgstr "Usuń wszystkie dane wtyczki podczas deaktywacji."
 
-#: ../includes/class-settings.php:325
+#: ../includes/class-settings.php:287
+msgid "Delete settings on plugin deactivation"
+msgstr "Usuń dane wtyczki podczas jej deaktywacji"
+
+#: ../includes/class-settings.php:331
 msgid ""
 "You need to check at least one mathematical operation. Defaults settings of "
 "this option restored."
@@ -321,7 +330,7 @@ msgstr ""
 "Musisz wybrać przynajmniej jedną operację. Przywrócono domyślne ustawienie "
 "tej opcji."
 
-#: ../includes/class-settings.php:344
+#: ../includes/class-settings.php:350
 msgid ""
 "You need to check at least one group. Defaults settings of this option "
 "restored."
@@ -329,7 +338,7 @@ msgstr ""
 "Musisz wybrać przynajmniej jedną grupę. Przywrócono domyślne ustawienie tej "
 "opcji."
 
-#: ../includes/class-settings.php:381
+#: ../includes/class-settings.php:387
 msgid "Settings restored to defaults."
 msgstr "Ustawienia zostały przywrócone do domyślnych."
 
@@ -360,6 +369,14 @@ msgstr "Forum pomocy"
 #: ../wp-math-captcha.php:224
 msgid "Settings"
 msgstr "Ustawienia"
+
+#~ msgid ""
+#~ "Blocks direct access to wp-comments-post.php. Enable this to prevent "
+#~ "spambots from posting to Wordpress via a URL."
+#~ msgstr ""
+#~ "To ustawienie blokuje bezpośredni dostęp do pliku wp-comments-post.php. "
+#~ "Włącz to jeśli chcesz uniemożliwiść spambotom dodawanie komentarzy "
+#~ "poprzez URL."
 
 #~ msgid "yes"
 #~ msgstr "tak"

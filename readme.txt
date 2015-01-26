@@ -4,7 +4,7 @@ Donate link: http://www.dfactory.eu/
 Tags: antispam, capcha, captcha, captha, catcha, comment, comments, spam, security, login, lost password, math captcha, registration, cf7, contact, contact forms, form, contact form 7, bbpress
 Requires at least: 3.3
 Tested up to: 4.1
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -60,6 +60,10 @@ A. Chances are, someone else has asked it. Check out the support forum at: http:
 1. screenshot-1.png
 
 == Changelog ==
+
+= 1.2.4 =
+* Tweak: Switch from wp_generate_password() to custom function due to Jetpack statistics DB calls issue
+* Fix: Undefined contant notice in plugin settings
 
 = 1.2.3 =
 * New: Romanian translation, thanks to [Robert M.](http://www.administrezimobile.net)
@@ -123,5 +127,6 @@ A. Chances are, someone else has asked it. Check out the support forum at: http:
 
 == Upgrade Notice ==
 
-= 1.2.3 =
-* New: Romanian translation, thanks to [Robert M.](http://www.administrezimobile.net)
+= 1.2.4 =
+* Tweak: Switch from wp_generate_password() to custom function due to Jetpack statistics DB calls issue
+* Fix: Undefined contant notice in plugin settings
