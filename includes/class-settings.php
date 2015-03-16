@@ -84,16 +84,16 @@ class Math_Captcha_Settings
 						<p class="inner">'.__('If you are having problems with this plugin, please talk about them in the', 'math-captcha').' <a href="http://www.dfactory.eu/support/?utm_source=math-captcha-settings&utm_medium=link&utm_campaign=support" target="_blank" title="'.__('Support forum','math-captcha').'">'.__('Support forum', 'math-captcha').'</a></p>
 						<hr/>
 						<h4 class="inner">'.__('Do you like this plugin?', 'math-captcha').'</h4>
-						<p class="inner"><a href="http://wordpress.org/support/view/plugin-reviews/wp-math-captcha" target="_blank" title="'.__('Rate it 5', 'math-captcha').'">'.__('Rate it 5', 'math-captcha').'</a> '.__('on WordPress.org', 'math-captcha').'<br/>'.
-						__('Blog about it & link to the', 'math-captcha').' <a href="http://www.dfactory.eu/plugins/math-captcha/?utm_source=math-captcha-settings&utm_medium=link&utm_campaign=blog-about" target="_blank" title="'.__('plugin page', 'math-captcha').'">'.__('plugin page', 'math-captcha').'</a><br/>'.
-						__('Check out our other', 'math-captcha').' <a href="http://www.dfactory.eu/plugins/?utm_source=math-captcha-settings&utm_medium=link&utm_campaign=other-plugins" target="_blank" title="'.__('WordPress plugins', 'math-captcha').'">'.__('WordPress plugins', 'math-captcha').'</a>
-						</p>
 						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" class="inner">
 							<input type="hidden" name="cmd" value="_s-xclick">
 							<input type="hidden" name="hosted_button_id" value="BJSHR9GS5QJTC">
 							<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 							<img alt="" border="0" src="https://www.paypalobjects.com/pl_PL/i/scr/pixel.gif" width="1" height="1">
 						</form>
+						<p class="inner"><a href="http://wordpress.org/support/view/plugin-reviews/wp-math-captcha" target="_blank" title="'.__('Rate it 5', 'math-captcha').'">'.__('Rate it 5', 'math-captcha').'</a> '.__('on WordPress.org', 'math-captcha').'<br/>'.
+						__('Blog about it & link to the', 'math-captcha').' <a href="http://www.dfactory.eu/plugins/math-captcha/?utm_source=math-captcha-settings&utm_medium=link&utm_campaign=blog-about" target="_blank" title="'.__('plugin page', 'math-captcha').'">'.__('plugin page', 'math-captcha').'</a><br/>'.
+						__('Check out our other', 'math-captcha').' <a href="http://www.dfactory.eu/plugins/?utm_source=math-captcha-settings&utm_medium=link&utm_campaign=other-plugins" target="_blank" title="'.__('WordPress plugins', 'math-captcha').'">'.__('WordPress plugins', 'math-captcha').'</a>
+						</p>
 						<hr/>
 						<p class="df-link inner">Created by <a href="http://www.dfactory.eu/?utm_source=math-captcha-settings&utm_medium=link&utm_campaign=created-by" target="_blank" title="dFactory - Quality plugins for WordPress"><img src="'.MATH_CAPTCHA_URL.'/images/logo-dfactory.png" title="dFactory - Quality plugins for WordPress" alt="dFactory - Quality plugins for WordPress"/></a></p>
 					</div>

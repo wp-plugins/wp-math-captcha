@@ -50,7 +50,7 @@ class Math_Captcha_Core
 	{
 		// Contact Form 7
 		if(Math_Captcha()->options['general']['enable_for']['contact_form_7'] && class_exists('WPCF7_ContactForm'))
-			include_once(MATH_CAPTCHA_PATH.'includes/integration-cf7.php');
+			include_once(MATH_CAPTCHA_PATH.'includes/integrations/contact-form-7.php');
 
 		if(is_admin())
 			return;

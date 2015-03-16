@@ -37,12 +37,12 @@ class Math_Captcha_Cookie_Session
 					case 'multi':
 						for($i = 0; $i < 5; $i++)
 						{
-							$this->session_ids[$place][$i] = sha1($this->generate_password(64, false, false));
+							$this->session_ids[$place][$i] = sha1($this->generate_password());
 						}
 						break;
 
 					case 'default':
-						$this->session_ids[$place] = sha1($this->generate_password(64, false, false));
+						$this->session_ids[$place] = sha1($this->generate_password());
 						break;
 				}
 			}
@@ -59,21 +59,16 @@ class Math_Captcha_Cookie_Session
 		}
 	}
 
-	
+
 	/**
 	 * Generate password helper, without wp_rand() call
 	*/
-	private function generate_password($length = 12, $special_chars = true, $extra_special_chars = false)
+	private function generate_password($length = 64)
 	{
 		$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-		if ($special_chars)
-			$chars .= '!@#$%^&*()';
-		if ($extra_special_chars)
-			$chars .= '-_ []{}<>~`+=,.;:/?|';
-	
 		$password = '';
-		
-		for ($i = 0; $i < $length; $i++)
+
+		for($i = 0; $i < $length; $i++)
 		{
 			$password .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
 		}
