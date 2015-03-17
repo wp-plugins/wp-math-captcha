@@ -61,6 +61,9 @@ function wpcf7_mathcaptcha_validation_filter($result, $tag)
 	{
 		$cf7_version = get_option('wpcf7', '1.0.0');
 
+		if(is_array($cf7_version) && isset($cf7_version['version']))
+			$cf7_version = $cf7_version['version'];
+
 		if($_POST[$name] !== '')
 		{
 			$session_id = (isset($_POST[$name.'-sn']) && $_POST[$name.'-sn'] !== '' ? Math_Captcha()->cookie_session->session_ids['multi'][$_POST[$name.'-sn']] : '');
@@ -70,11 +73,11 @@ function wpcf7_mathcaptcha_validation_filter($result, $tag)
 				if(strcmp(get_transient('cf7_'.$session_id), sha1(AUTH_KEY.$_POST[$name].$session_id, false)) !== 0)
 				{
 					if(version_compare($cf7_version, '4.1.0', '>='))
-						$result['reason'][$name] = wpcf7_get_message('wrong_mathcaptcha');
+						$result->invalidate($tag, wpcf7_get_message('wrong_mathcaptcha'));
 					else
 					{
 						$result['valid'] = false;
-						$result->invalidate($tag, wpcf7_get_message('wrong_mathcaptcha'));
+						$result['reason'][$name] = wpcf7_get_message('wrong_mathcaptcha');
 					}
 				}
 			}
